@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8"/>
+    <title></title>
+</head>
+<body>
+
+
+<form method="post">
+    <label>Name
+        <input type="text" name="name" placeholder="Plant Name">
+    </label>
+    <label>
+        <input type="number" name="grow_time" placeholder="How long do you want to grow your plant?">
+    </label>
+        <input type="submit" value="Submit">
+</form>
+
+
+<form method="post">
+    <div class="form-group">
+        <label>Name
+            <input th:field="${eventCategory.name}" class="form-control">
+        </label>
+        <span th:errors="${eventCategory.name}" class="error"></span>
+    </div>
+    <input type="submit" value="Create" class="btn btn-primary">
+</form>
+
+
+
+</body>
+</html>
