@@ -5,7 +5,7 @@ import com.example.javagarden.data.PlantRepository;
 import com.example.javagarden.models.Plant;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -37,6 +37,7 @@ public class PlantController {
         return "plants/create";
     }
 
+
     @PostMapping("create")
     public String processCreatePlantForm(@ModelAttribute @Valid Plant newPlant, Errors errors, Model model){
 
@@ -46,8 +47,7 @@ public class PlantController {
         }
 
         plantRepository.save(newPlant);
-        return "redirect:";
-
+        return "redirect:../plants";
     }
 
 

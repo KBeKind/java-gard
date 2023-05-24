@@ -4,6 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 
@@ -18,7 +19,7 @@ public class Plant {
     @Size(min = 3, max = 50, message = "name must be between 3 and 50 characters")
     private String name;
 
-    @NotBlank(message = "grow time is required")
+    @NotNull(message = "a grow time is required")
     private int growTime;
 
 
