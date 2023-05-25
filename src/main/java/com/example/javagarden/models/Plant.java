@@ -1,40 +1,30 @@
 package com.example.javagarden.models;
 
+
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.validation.constraints.NotBlank;
+import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 
+
 @Entity
-public class Plant {
+public class Plant extends AbstractEntity {
 
-    @Id
-    @GeneratedValue
-    private int id;
-
-    @NotBlank(message = "name is required")
-    @Size(min = 3, max = 50, message = "name must be between 3 and 50 characters")
+    @Size(min = 3, max = 20, message = "Name must be at least 3 characters long")
     private String name;
 
-    @NotNull(message = "a grow time is required")
-    private int growTime;
+    @ManyToOne
+    @NotNull(message = "Plant Time is required")
+    private PlantTime plantTime;
 
-
-    public Plant(String name, int growTime) {
+    public Plant(@Size(min = 3, message = "Name must be at least 3 characters long") String name, PlantTime plantTime) {
         this.name = name;
-        this.growTime = growTime;
+        this.plantTime = plantTime;
     }
 
-    public Plant() {}
-
-
-    public int getId() {
-        return id;
+    public Plant() {
     }
-
 
     public String getName() {
         return name;
@@ -44,14 +34,13 @@ public class Plant {
         this.name = name;
     }
 
-    public int getGrowTime() {
-        return growTime;
+
+    public PlantTime getPlantTime() {
+        return plantTime;
     }
 
-    public void setGrowTime(int growTime) {
-        this.growTime = growTime;
+    public void setPlantTime(PlantTime plantTime) {
+        this.plantTime = plantTime;
     }
-
-
 }
 

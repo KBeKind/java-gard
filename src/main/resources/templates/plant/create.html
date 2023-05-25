@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+<body class="container">
+
+<header th:replace="fragments :: header"></header>
+
+<form method="post">
+    <div class="form-group">
+        <label>Name
+            <input th:field="${plant.name}" class="form-control">
+        </label>
+        <span th:errors="${plant.name}" class="error"></span>
+    </div>
+    <div class="form-group">
+        <label>Plant Time
+            <select th:field="${plant.plantTime}">
+
+                <option th:each="plantTime : ${plantTimes}"
+                        th:value="${plantTime.id}"
+                        th:text="${plantTime.name}"
+                ></option>
+            </select>
+            <p class="error" th:errors="${plant.plantTime}"></p>
+        </label>
+    </div>
+
+
+
+    <input type="submit" value="Create" class="btn btn-primary">
+</form>
+
+</body>
+</html>

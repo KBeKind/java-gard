@@ -1,55 +1,93 @@
 package com.example.javagarden.controllers;
 
-
 import com.example.javagarden.data.PlantRepository;
+
+import com.example.javagarden.data.PlantTimeRepository;
 import com.example.javagarden.models.Plant;
+import com.example.javagarden.models.PlantTime;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 @Controller
-@RequestMapping("plants")
+@RequestMapping("plant")
 public class PlantController {
 
     @Autowired
     private PlantRepository plantRepository;
 
+    @Autowired
+    private PlantTimeRepository plantTimeRepository;
+
     @GetMapping
-    public String displayAllPlants(Model model) {
+    public String displayPlants(@RequestParam(required = false) Integer plantTimeId, Model model) {
 
-        model.addAttribute("title", "All plants");
-        model.addAttribute("plants", plantRepository.findAll());
+        if (plantTimeId == null) {
+            model.addAttribute("title", "All Plants");
+            model.addAttribute("plants", plantRepository.findAll());
+        } else {
+            Optional<PlantTime> result = plantTimeRepository.findById(plantTimeId);
+            if (result.isEmpty()) {
+                model.addAttribute("title", "Invalid Plant Time ID: " + plantTimeId);
+            } else {
+                PlantTime plantTime = result.get();
+                model.addAttribute("title", "Plant Time: " + plantTime.getName());
+                model.addAttribute("plants", plantTime.getPlants());
+            }
+        }
 
-        return "plants/index";
+        return "plant/index";
     }
 
+
+
+
     @GetMapping("create")
-    public String displayCreateEventForm(Model model) {
+    public String displayCreatePlantForm(Model model) {
         model.addAttribute("title", "Create Plant");
         model.addAttribute(new Plant());
-        return "plants/create";
+        model.addAttribute("plantTimes", plantTimeRepository.findAll());
+        return "plant/create";
     }
 
 
     @PostMapping("create")
-    public String processCreatePlantForm(@ModelAttribute @Valid Plant newPlant, Errors errors, Model model){
+    public String processCreatePlantForm(@Valid @ModelAttribute Plant plant,
+                                                 Errors errors, Model model) {
 
-        if(errors.hasErrors()) {
-            model.addAttribute("title", "Create Event");
-            return "events/create";
+        if (errors.hasErrors()) {
+            model.addAttribute("title", "Create Plant");
+            model.addAttribute(new Plant());
+            return "plant/create";
         }
 
-        plantRepository.save(newPlant);
-        return "redirect:../plants";
+        plantRepository.save(plant);
+        return "redirect:../plant";
     }
 
 
+    @GetMapping("delete")
+    public String displayDeletePlantForm(Model model) {
+        model.addAttribute("title", "Delete Plants");
+        model.addAttribute("plants", plantRepository.findAll());
+        return "plant/delete";
+    }
+
+    @PostMapping("delete")
+    public String processDeletePlantForm(@RequestParam(required = false) int[] plantIds) {
+
+        if (plantIds != null) {
+            for (int id : plantIds) {
+                plantRepository.deleteById(id);
+            }
+        }
+
+        return "redirect:";
+    }
 
 }
