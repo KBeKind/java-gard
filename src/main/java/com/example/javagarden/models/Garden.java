@@ -1,43 +1,51 @@
 package com.example.javagarden.models;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Entity
-public class Garden extends NamedEntity{
+public class Garden extends NamedEntity {
+
+//    @NotNull(message = "Bed number is required")
+//    private int gardenBedNumber;
+
+    @OneToMany(mappedBy = "garden")
+    private List<Bed> beds = new ArrayList<>();
 
 
-    @NotNull(message = "Garden width is required")
-    private int gardenWidth;
-
-    @NotNull(message = "Garden length is required")
-    private int gardenLength;
+//    public Garden(int gardenBedNumber) {
+//        this.gardenBedNumber = gardenBedNumber;
+//    }
 
 
-    public Garden(int gardenWidth, int gardenLength) {
-        this.gardenWidth = gardenWidth;
-        this.gardenLength = gardenLength;
+    public Garden(List<Bed> beds) {
+        this.beds = beds;
     }
 
-    public Garden () {}
-
-    public int getGardenWidth() {
-        return gardenWidth;
+    public Garden() {
     }
 
-    public void setGardenWidth(int gardenWidth) {
-        this.gardenWidth = gardenWidth;
+//    public int getGardenBedNumber() {
+//        return gardenBedNumber;
+//    }
+//
+//    public void setGardenBedNumber(int gardenBedNumber) {
+//        this.gardenBedNumber = gardenBedNumber;
+//    }
+
+
+    public List<Bed> getBeds() {
+        return beds;
     }
 
-    public int getGardenLength() {
-        return gardenLength;
-    }
-
-    public void setGardenLength(int gardenLength) {
-        this.gardenLength = gardenLength;
+    public void setBeds(List<Bed> beds) {
+        this.beds = beds;
     }
 }
+
 

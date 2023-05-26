@@ -5,6 +5,7 @@ import com.example.javagarden.data.PlantRepository;
 import com.example.javagarden.data.PlantTimeRepository;
 import com.example.javagarden.models.Plant;
 import com.example.javagarden.models.PlantTime;
+import com.example.javagarden.service.DeleteService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -78,15 +79,8 @@ public class PlantController {
 
     @PostMapping("delete")
     public String processDeletePlantForm(@RequestParam(required = false) int[] plantIds) {
-
-        if (plantIds != null) {
-            for (int id : plantIds) {
-                plantRepository.deleteById(id);
-            }
-        }
-
+        DeleteService.deleteData( plantIds, plantRepository);
         return "redirect:../plant";
-
     }
 
     @GetMapping("detail")

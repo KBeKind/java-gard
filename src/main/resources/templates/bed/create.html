@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:insert="~{fragments :: head}"></head>
+<body class="container">
+
+<header th:insert="~{fragments :: header}"></header>
+
+    <form method="post">
+        <th:block th:each="bed : ${beds}">
+        <div class="form-group">
+            <label>Bed Name
+                <input th:field="${bed.name}" class="form-control">
+            </label>
+            <span th:errors="${bed.name}" class="error"></span>
+        </div>
+        </th:block>
+
+        <input type="submit" value="Create" class="btn btn-primary">
+
+    </form>
+
+
+
+
+</body>
+</html>
