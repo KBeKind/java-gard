@@ -58,25 +58,25 @@ public class GardenController {
     }
 
 
-//    @GetMapping("delete")
-//    public String displayDeletePlantForm(Model model) {
-//        model.addAttribute("title", "Delete Plants");
-//        model.addAttribute("plants", plantRepository.findAll());
-//        return "plant/delete";
-//    }
-//
-//    @PostMapping("delete")
-//    public String processDeletePlantForm(@RequestParam(required = false) int[] plantIds) {
-//
-//        if (plantIds != null) {
-//            for (int id : plantIds) {
-//                plantRepository.deleteById(id);
-//            }
-//        }
-//
-//        return "redirect:../plant";
-//
-//    }
+    @GetMapping("delete")
+    public String displayDeleteGardenForm(Model model) {
+        model.addAttribute("title", "Delete Gardens");
+        model.addAttribute("gardens", gardenRepository.findAll());
+        return "garden/delete";
+    }
+
+    @PostMapping("delete")
+    public String processDeleteGardenForm(@RequestParam(required = false) int[] gardenIds) {
+
+        if (gardenIds != null) {
+            for (int id : gardenIds) {
+                gardenRepository.deleteById(id);
+            }
+        }
+
+        return "redirect:../garden";
+
+    }
 //
 //    @GetMapping("detail")
 //    public String displayEventDetails(@RequestParam Integer plantId, Model model) {

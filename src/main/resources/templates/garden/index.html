@@ -11,12 +11,13 @@
         <th>Garden Plots</th>
     </tr>
     </thead>
-<!--    <tr th:each="plant : ${plants}">-->
-<!--        <td><a th:href="'/plant/detail?plantId=' + ${plant.id}" th:text="${plant.name}"></a></td>-->
-<!--        <td th:text="${plant.plantTime.name}"></td>-->
+    <tr th:each="garden : ${gardens}">
+        <td><a th:href="'/plant/detail?gardenId=' + ${garden.id}" th:text="${garden.name}"></a></td>
+        <td th:text="${garden.gardenWidth}"></td>
+        <td th:text="${garden.gardenLength}"></td>
 
 
-<!--    </tr>-->
+    </tr>
 
 </table>
 

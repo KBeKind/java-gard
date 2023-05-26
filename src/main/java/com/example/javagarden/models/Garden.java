@@ -10,18 +10,34 @@ import jakarta.validation.constraints.Size;
 public class Garden extends NamedEntity{
 
 
-//    @ManyToOne
-//    @NotNull(message = "Plot Number is required")
-//    private int plotNumber;
+    @NotNull(message = "Garden width is required")
+    private int gardenWidth;
+
+    @NotNull(message = "Garden length is required")
+    private int gardenLength;
+
+
+    public Garden(int gardenWidth, int gardenLength) {
+        this.gardenWidth = gardenWidth;
+        this.gardenLength = gardenLength;
+    }
 
     public Garden () {}
 
-//    public int getPlotNumber() {
-//        return plotNumber;
-//    }
-//
-//    public void setPlotNumber(int plotNumber) {
-//        this.plotNumber = plotNumber;
-//    }
+    public int getGardenWidth() {
+        return gardenWidth;
+    }
+
+    public void setGardenWidth(int gardenWidth) {
+        this.gardenWidth = gardenWidth;
+    }
+
+    public int getGardenLength() {
+        return gardenLength;
+    }
+
+    public void setGardenLength(int gardenLength) {
+        this.gardenLength = gardenLength;
+    }
 }
 
