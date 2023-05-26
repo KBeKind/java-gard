@@ -12,7 +12,9 @@
     </tr>
     </thead>
     <tr th:each="plant : ${plants}">
-        <td><a th:text="${plant.name}" th:href="'/plants?plantId=' + ${plant.id}"></a></td>
+        <td><a th:href="'/plant/detail?plantId=' + ${plant.id}" th:text="${plant.name}"></a></td>
+        <td th:text="${plant.plantTime.name}"></td>
+
 
     </tr>
 

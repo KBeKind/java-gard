@@ -46,4 +46,26 @@ public class PlantTimeController {
         return "redirect:../planttime";
     }
 
+
+    @GetMapping("delete")
+    public String displayDeletePlantTimeForm(Model model) {
+        model.addAttribute("title", "Delete Plant Times");
+        model.addAttribute("plantTimes", plantTimeRepository.findAll());
+        return "planttime/delete";
+    }
+
+    @PostMapping("delete")
+    public String processDeletePlantTimeForm(@RequestParam(required = false) int[] plantTimeIds) {
+
+        if (plantTimeIds != null) {
+            for (int id : plantTimeIds) {
+                plantTimeRepository.deleteById(id);
+            }
+        }
+
+        return "redirect:../plant";
+
+    }
+
+
 }

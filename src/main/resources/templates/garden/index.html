@@ -8,12 +8,15 @@
 <table class="table table-striped">
     <thead>
     <tr>
-        <th>Plant Time List</th>
+        <th>Garden Plots</th>
     </tr>
     </thead>
-    <tr th:each="plantTime : ${plantTimes}">
-        <td><a th:text="${plantTime.name}" th:href="'/plant?plantTimeId=' + ${plantTime.id}"></a></td>
-    </tr>
+<!--    <tr th:each="plant : ${plants}">-->
+<!--        <td><a th:href="'/plant/detail?plantId=' + ${plant.id}" th:text="${plant.name}"></a></td>-->
+<!--        <td th:text="${plant.plantTime.name}"></td>-->
+
+
+<!--    </tr>-->
 
 </table>
 

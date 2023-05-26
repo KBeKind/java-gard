@@ -7,17 +7,14 @@
 
 <form method="post">
 
-    <th:block th:each="plant : ${plants}">
+    <th:block th:each="plantTime : ${plantTimes}">
         <div class="form-group">
             <label>
-                <span th:text="${plant.name}"></span>
-                <input type="checkbox" name="plantIds" th:value="${plant.id}" class="form-control">
+                <span th:text="${plantTime.name}"></span>
+                <input type="checkbox" name="plantTimeIds" th:value="${plantTime.id}" class="form-control">
             </label>
         </div>
     </th:block>
-
-
-
 
     <input type="submit" value="Delete" class="btn btn-danger">
 

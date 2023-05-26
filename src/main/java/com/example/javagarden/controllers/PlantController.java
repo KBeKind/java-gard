@@ -44,9 +44,6 @@ public class PlantController {
         return "plant/index";
     }
 
-
-
-
     @GetMapping("create")
     public String displayCreatePlantForm(Model model) {
         model.addAttribute("title", "Create Plant");
@@ -67,6 +64,7 @@ public class PlantController {
         }
 
         plantRepository.save(plant);
+
         return "redirect:../plant";
     }
 
@@ -87,7 +85,24 @@ public class PlantController {
             }
         }
 
-        return "redirect:";
+        return "redirect:../plant";
+
+    }
+
+    @GetMapping("detail")
+    public String displayEventDetails(@RequestParam Integer plantId, Model model) {
+
+        Optional<Plant> result = plantRepository.findById(plantId);
+
+        if (result.isEmpty()) {
+            model.addAttribute("title", "Invalid Event ID: " + plantId);
+        } else {
+            Plant plant = result.get();
+            model.addAttribute("title", plant.getName() + " Details");
+            model.addAttribute("plant", plant);
+        }
+
+        return "plant/detail";
     }
 
 }

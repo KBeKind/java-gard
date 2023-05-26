@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+<body class="container">
+
+<header th:replace="fragments :: header"></header>
+
+<form method="post">
+    <div class="form-group">
+        <label>Garden Name
+            <input th:field="${garden.name}" class="form-control">
+        </label>
+        <span th:errors="${garden.name}" class="error"></span>
+    </div>
+    <div class="form-group">
+        <label>Number of Plots
+<!--            <select th:field="${garden.plot}">-->
+
+<!--                <option th:each="plot : ${plots}"-->
+<!--                        th:value="${plot.id}"-->
+<!--                        th:text="${plot.name}"-->
+<!--                ></option>-->
+<!--            </select>-->
+<!--            <p class="error" th:errors="${garden.plot}"></p>-->
+        </label>
+    </div>
+
+
+
+    <input type="submit" value="Create" class="btn btn-primary">
+</form>
+
+</body>
+</html>
