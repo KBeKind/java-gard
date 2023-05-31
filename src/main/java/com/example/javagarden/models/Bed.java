@@ -1,51 +1,48 @@
 package com.example.javagarden.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Entity
+@Table(name = "bed")
 public class Bed extends NamedEntity{
-//    @NotNull(message = "Bed width is required")
-//    private int bedWidth;
-//
-//    @NotNull(message = "Bed length is required")
-//    private int bedLength;
 
     @ManyToOne
+    @JoinColumn(name = "garden_id")
     @NotNull(message = "Garden is required")
     private Garden garden;
 
-
-//    public Bed(int bedWidth, int bedLength, Garden garden) {
-//        this.bedWidth = bedWidth;
-//        this.bedLength = bedLength;
-//        this.garden = garden;
-//    }
+    @OneToMany(mappedBy = "bed", cascade = CascadeType.ALL)
+    private final List<Plot> plots = new ArrayList<>();
 
 
-    public Bed(Garden garden) {
+    @NotNull(message = "Bed Width in Plots is required")
+    @Min(value = 1, message = "Each bed must have at least one plot")
+    @Max(value = 100, message = "100 is the maximum for width")
+    private int bedWidthPlots;
+
+    @NotNull(message = "Bed Length in Plots is required")
+    @Min(value = 1, message = "Each bed must have at least one plot")
+    @Max(value = 100, message = "100 is the maximum for length")
+    private int bedLengthPlots;
+
+
+    public Bed(String name, Garden garden, int bedWidthPlots, int bedLengthPlots, int plotTotal) {
+
+        this.setName(name);
         this.garden = garden;
+        this.bedWidthPlots = bedWidthPlots;
+        this.bedLengthPlots = bedLengthPlots;
+        createPlots(plotTotal);
     }
 
     public Bed () {}
-
-//    public int getBedWidth() {
-//        return bedWidth;
-//    }
-//
-//    public void setBedWidth(int bedWidth) {
-//        this.bedWidth = bedWidth;
-//    }
-//
-//    public int getBedLength() {
-//        return bedLength;
-//    }
-//
-//    public void setBedLength(int bedLength) {
-//        this.bedLength = bedLength;
-//    }
 
 
     public Garden getGarden() {
@@ -55,5 +52,42 @@ public class Bed extends NamedEntity{
     public void setGarden(Garden garden) {
         this.garden = garden;
     }
+
+
+    public void createPlots(int plotTotal){
+
+        for (int i = 0; i < plotTotal; i++){
+            addPlot();
+        }
+
+    }
+
+
+    public int getBedWidthPlots() {
+        return bedWidthPlots;
+    }
+
+    public void setBedWidthPlots(int bedWidthPlots) {
+        this.bedWidthPlots = bedWidthPlots;
+    }
+
+    public int getBedLengthPlots() {
+        return bedLengthPlots;
+    }
+
+    public void setBedLengthPlots(int bedLengthPlots) {
+        this.bedLengthPlots = bedLengthPlots;
+    }
+
+    public void addPlot() {
+
+        this.plots.add(new Plot(this));
+
+    }
+
+    public List<Plot> getPlots() {
+        return plots;
+    }
+
 }
 

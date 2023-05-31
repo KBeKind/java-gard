@@ -34,7 +34,7 @@ public class PlantTimeController {
 
 
     @PostMapping("create")
-    public String processCreateEventCategoryForm(@Valid @ModelAttribute PlantTime plantTime,
+    public String processCreatePlantTimeForm(@Valid @ModelAttribute PlantTime plantTime,
                                                  Errors errors, Model model) {
 
         if (errors.hasErrors()) {

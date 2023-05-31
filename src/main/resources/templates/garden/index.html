@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
-<head th:replace="fragments :: head"></head>
+<head th:replace="~{fragments :: head}"></head>
 <body class="container">
 
-<header th:replace="fragments :: header"></header>
+<header th:replace="~{fragments :: header}"></header>
 
 <table class="table table-striped">
     <thead>
     <tr>
-        <th>Garden Plots</th>
+        <th>Gardens</th>
     </tr>
     </thead>
     <tr th:each="garden : ${gardens}">
-        <td><a th:href="'/plant/detail?gardenId=' + ${garden.id}" th:text="${garden.name}"></a></td>
+        <td><a th:href="'/garden/detail?gardenId=' + ${garden.id}" th:text="${garden.name}"></a></td>
 
 
     </tr>

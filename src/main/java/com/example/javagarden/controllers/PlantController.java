@@ -45,6 +45,14 @@ public class PlantController {
         return "plant/index";
     }
 
+
+
+
+
+
+
+
+
     @GetMapping("create")
     public String displayCreatePlantForm(Model model) {
         model.addAttribute("title", "Create Plant");
@@ -70,6 +78,15 @@ public class PlantController {
     }
 
 
+
+
+
+
+
+
+
+
+
     @GetMapping("delete")
     public String displayDeletePlantForm(Model model) {
         model.addAttribute("title", "Delete Plants");
@@ -84,7 +101,7 @@ public class PlantController {
     }
 
     @GetMapping("detail")
-    public String displayEventDetails(@RequestParam Integer plantId, Model model) {
+    public String displayPlantDetails(@RequestParam Integer plantId, Model model) {
 
         Optional<Plant> result = plantRepository.findById(plantId);
 
