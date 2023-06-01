@@ -6,27 +6,37 @@
 <header th:replace="~{fragments :: header}"></header>
 
 
-
+<div class="garden-detail-garden-wrapper">
         <h2  th:text="${garden.name + ' Beds'}"></h2>
 
 
         <th:block th:each="bed : ${garden.beds}">
 
-            <h3 th:text="${bed.name}"></h3>
-            <table class="table table-bordered ">
-                <th:block th:each="i: ${#numbers.sequence(1, bed.bedLengthPlots)}">
-                <tr>
-                    <th:block th:each="j: ${#numbers.sequence(1, bed.bedWidthPlots)}">
-                        <td th:text="plot"></td>
+            <div class="garden-detail-table-wrapper">
+                <div class="garden-detail-table-border">
+                    <div class="garden-detail-table-inner-border">
+                        <h3 class="garden-detail-caption" th:text="${bed.name}"></h3>
+                        <div class="garden-detail-table-inner-border-2">
+                    <table class="garden-detail-table">
+
+<!--                        <caption class="garden-detail-caption" th:text="${bed.name}"></caption>-->
+
+                        <th:block th:each="i: ${#numbers.sequence(1, bed.bedLengthPlots)}">
+                        <tr class="garden-detail-tr">
+                            <th:block th:each="j: ${#numbers.sequence(1, bed.bedWidthPlots)}">
+                                <td class="garden-detail-td" th:text="plot"></td>
+                            </th:block>
+                        </tr>
                     </th:block>
-                </tr>
 
-            </th:block>
-
-            </table>
+                    </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </th:block>
 
-
+</div>
 
 </body>
 </html>

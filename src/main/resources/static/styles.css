@@ -1,0 +1,133 @@
+
+body {
+
+ background: hsla(214, 31%, 26%, 1);
+ color: hsla(83, 90%, 80%, 1);
+
+}
+
+
+
+header {
+
+}
+
+a:link {
+  color: hsla(83, 90%, 80%, 1);
+}
+
+a:visited {
+    color: hsla(83, 90%, 80%, 1);
+}
+
+
+a:hover {
+  color: hsla(90, 100%, 56%, 1);
+}
+
+
+
+.garden-detail-garden-wrapper {
+
+    width: min(900px, 100% - 3rem);
+    margin-inline: auto;
+
+
+}
+
+.garden-detail-table-wrapper {
+
+    margin: 1rem;
+    padding: 1rem;
+
+
+    background: hsla(148, 100%, 15%, 1);
+
+    border-radius: 1rem;
+
+}
+
+.garden-detail-table-border {
+    padding: 1rem;
+
+    background: hsla(120, 100%, 28% , 1);
+    border-radius: 1rem;
+
+}
+
+.garden-detail-table-inner-border {
+
+    padding-bottom: 1rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    background: hsla(83, 90%, 80%, 1);
+
+    border-radius: 1rem;
+
+}
+
+.garden-detail-table-inner-border-2 {
+
+    background: hsla(120, 100%, 28% , 1);
+
+    border-radius: 1rem;
+
+}
+
+
+.garden-detail-table {
+    width: 100%;
+    border-radius: 1rem;
+    background: hsla(83, 90%, 80%, 0);
+    color: hsla(28, 22%, 17%, 1);
+    border-collapse: collapse;
+
+
+}
+
+
+.garden-detail-td {
+    padding: 1rem;
+    border-radius: 1rem;
+    background: hsla(83, 90%, 80%, 0.3);
+}
+
+.garden-detail-td:nth-of-type(2n) {
+    border-radius: 1rem;
+    background: hsla(83, 90%, 80%, 0.6);
+}
+
+.garden-detail-tr:nth-of-type(2n) {
+    border-radius: 1rem;
+    background: hsla(83, 90%, 80%, 0.3);
+}
+
+
+
+.garden-detail-caption {
+    padding: 1rem;
+    caption-side: top;
+    text-align: left;
+    font-size: 2rem;
+    font-weight: bold;
+    color: black;
+
+}
+
+
+@media (max-width: 1000px) {
+
+    .garden-detail-td {
+        display: grid;
+    }
+
+
+}
+
+
+
+.table-container {
+
+    max-width: 100%;
+    overflow-x: scroll;
+}
