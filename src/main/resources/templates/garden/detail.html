@@ -18,13 +18,17 @@
                         <h3 class="garden-detail-caption" th:text="${bed.name}"></h3>
                         <div class="garden-detail-table-inner-border-2">
                     <table class="garden-detail-table">
-
-<!--                        <caption class="garden-detail-caption" th:text="${bed.name}"></caption>-->
-
                         <th:block th:each="i: ${#numbers.sequence(1, bed.bedLengthPlots)}">
                         <tr class="garden-detail-tr">
                             <th:block th:each="j: ${#numbers.sequence(1, bed.bedWidthPlots)}">
-                                <td class="garden-detail-td" th:text="plot"></td>
+                                <td class="garden-detail-td">
+
+                                    <div th:text="${bed.plots[(i-1) + (j-1)]}">
+                                    </div>
+                                    <a href th:if="${bed.plots[(i-1) + (j-1)].planting == null}">Plant Here</a>
+
+
+                                </td>
                             </th:block>
                         </tr>
                     </th:block>

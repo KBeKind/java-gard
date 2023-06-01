@@ -1,9 +1,6 @@
 package com.example.javagarden.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 
 @Entity
@@ -14,6 +11,9 @@ public class Plot extends AbstractEntity{
         @JoinColumn(name = "bed_id")
         @NotNull(message = "Bed is required")
         private Bed bed;
+
+        @OneToOne
+        private Planting planting;
 
 
         public Plot(Bed bed) {
@@ -30,6 +30,23 @@ public class Plot extends AbstractEntity{
             this.bed = bed;
         }
 
+
+    public Planting getPlanting() {
+        return planting;
+    }
+
+    public void setPlanting(Planting planting) {
+        this.planting = planting;
+    }
+
+
+    @Override
+    public String toString() {
+        return "Plot{" +
+                "bed=" + bed +
+                ", planting=" + planting +
+                '}';
+    }
 }
 
 

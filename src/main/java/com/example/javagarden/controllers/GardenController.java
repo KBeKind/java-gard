@@ -16,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -141,11 +142,30 @@ public class GardenController {
             Garden garden = result.get();
             model.addAttribute("title", garden.getName() + " Details");
             model.addAttribute("garden", garden);
+
+
         }
 
         return "garden/detail";
     }
 
+
+//    @PostMapping("detail")
+//    public String processGardenDetails(HttpServletRequest request, Model model){
+//
+//        String[] plantHereClickedList = request.getParameterValues("plantHereClicked");
+//
+//        List<Boolean> bedNamesList = new ArrayList<>();
+//        for (String plantHereClicked : plantHereClickedList) {
+//            bedNamesList.add(Boolean.parseBoolean(plantHereClicked));
+//        }
+//
+//
+//
+//
+//
+//        return "redirect:";
+//    }
 
 
 }

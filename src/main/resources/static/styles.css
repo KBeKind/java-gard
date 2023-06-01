@@ -28,7 +28,6 @@ a:hover {
 
 
 .garden-detail-garden-wrapper {
-
     width: min(900px, 100% - 3rem);
     margin-inline: auto;
 
@@ -36,60 +35,46 @@ a:hover {
 }
 
 .garden-detail-table-wrapper {
-
     margin: 1rem;
     padding: 1rem;
-
-
     background: hsla(148, 100%, 15%, 1);
-
     border-radius: 1rem;
 
 }
 
 .garden-detail-table-border {
     padding: 1rem;
-
     background: hsla(120, 100%, 28% , 1);
     border-radius: 1rem;
 
 }
 
 .garden-detail-table-inner-border {
-
     padding-bottom: 1rem;
     padding-left: 1rem;
     padding-right: 1rem;
     background: hsla(83, 90%, 80%, 1);
-
     border-radius: 1rem;
-
 }
 
 .garden-detail-table-inner-border-2 {
-
     background: hsla(120, 100%, 28% , 1);
-
     border-radius: 1rem;
-
 }
 
 
 .garden-detail-table {
     width: 100%;
     border-radius: 1rem;
-    background: hsla(83, 90%, 80%, 0);
     color: hsla(28, 22%, 17%, 1);
     border-collapse: collapse;
-
-
 }
 
 
 .garden-detail-td {
     padding: 1rem;
     border-radius: 1rem;
-    background: hsla(83, 90%, 80%, 0.3);
+    background: hsla(83, 90%, 80%, 0.5);
 }
 
 .garden-detail-td:nth-of-type(2n) {
