@@ -19,8 +19,11 @@ public class Planting extends AbstractEntity{
     private Plot plot;
 
 
-    public Planting(Plot plot) {
+    private String plantName;
+
+    public Planting(Plot plot, String plantName) {
         this.plot = plot;
+        this.plantName = plantName;
     }
 
     public Planting() {
@@ -32,5 +35,13 @@ public class Planting extends AbstractEntity{
 
     public void setPlot(Plot plot) {
         this.plot = plot;
+    }
+
+    public String getPlantName() {
+        return plantName;
+    }
+
+    public void setPlantName(String plantName) {
+        this.plantName = plantName;
     }
 }

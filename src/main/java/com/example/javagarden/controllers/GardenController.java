@@ -1,11 +1,13 @@
 package com.example.javagarden.controllers;
 
+import com.example.javagarden.controllers.dto.PlantingDTO;
 import com.example.javagarden.data.BedRepository;
 import com.example.javagarden.data.GardenRepository;
 
 import com.example.javagarden.controllers.dto.GardenStartDTO;
-import com.example.javagarden.models.Bed;
-import com.example.javagarden.models.Garden;
+import com.example.javagarden.data.PlantRepository;
+import com.example.javagarden.data.PlotRepository;
+import com.example.javagarden.models.*;
 
 import com.example.javagarden.service.DeleteService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -31,6 +33,13 @@ public class GardenController {
 
     @Autowired
     private BedRepository bedRepository;
+
+    @Autowired
+    private PlantRepository plantRepository;
+
+    @Autowired
+    private PlotRepository plotRepository;
+
 
     @GetMapping
     public String displayGarden(Model model) {
@@ -79,6 +88,7 @@ public class GardenController {
         model.addAttribute("title", "Create Garden");
         model.addAttribute("garden", garden);
         model.addAttribute("bedNum", bedNum);
+
 
         return "garden/create";
     }
@@ -136,12 +146,19 @@ public class GardenController {
 
         Optional<Garden> result = gardenRepository.findById(gardenId);
 
+
+
         if (result.isEmpty()) {
             model.addAttribute("title", "Invalid Event ID: " + gardenId);
         } else {
             Garden garden = result.get();
             model.addAttribute("title", garden.getName() + " Details");
             model.addAttribute("garden", garden);
+            model.addAttribute("plants", plantRepository.findAll());
+
+            PlantingDTO plantingDTO = new PlantingDTO();
+            plantingDTO.setGardenId(gardenId);
+            model.addAttribute("plantingDTO", plantingDTO);
 
 
         }
@@ -150,22 +167,28 @@ public class GardenController {
     }
 
 
-//    @PostMapping("detail")
-//    public String processGardenDetails(HttpServletRequest request, Model model){
-//
-//        String[] plantHereClickedList = request.getParameterValues("plantHereClicked");
-//
-//        List<Boolean> bedNamesList = new ArrayList<>();
-//        for (String plantHereClicked : plantHereClickedList) {
-//            bedNamesList.add(Boolean.parseBoolean(plantHereClicked));
-//        }
-//
-//
-//
-//
-//
-//        return "redirect:";
-//    }
+    @PostMapping("detail")
+    public String processGardenDetails(@ModelAttribute @Valid PlantingDTO plantingDTO, Model model){
+
+        Optional<Plot> result = plotRepository.findById(plantingDTO.getPlotId());
+        if (result.isEmpty()) {
+            model.addAttribute("title", "Invalid Category ID: ");
+
+            return "redirect:../garden";
+
+        } else {
+
+            Plot plot = result.get();
+            Planting planting = new Planting(plot, plantingDTO.getName());
+
+            return "redirect:../garden";
+
+        }
+
+
+
+
+    }
 
 
 }
