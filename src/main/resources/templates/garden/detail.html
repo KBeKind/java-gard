@@ -15,34 +15,37 @@
             <div class="garden-detail-table-wrapper">
                 <div class="garden-detail-table-border">
                     <div class="garden-detail-table-inner-border">
+
                         <h3 class="garden-detail-caption" th:text="${bed.name}"></h3>
+
                         <div class="garden-detail-table-inner-border-2">
-                    <table class="garden-detail-table">
-                        <th:block th:each="i: ${#numbers.sequence(1, bed.bedLengthPlots)}">
-                        <tr class="garden-detail-tr">
-                            <th:block th:each="j: ${#numbers.sequence(1, bed.bedWidthPlots)}">
-                                <td class="garden-detail-td">
 
-                                    <form method="post" th:if="${bed.plots[(i-1) + (j-1)].planting == null}">
+                            <div class ="garden-detail-table" th:style="'grid-template-columns: repeat('+ ${bed.bedWidthPlots} +', 1fr);'">
 
+                                <th:block th:each="plot: ${bed.plots}">
+                                <div class="garden-detail-td">
+                                    <p th:text="${plot.id}"></p>
 
-                                       <select  th:field="${plantingDTO.name}">
+                                    <p th:if="${plot.planting}" th:text="${plot.planting.plantName}">
+
+                                    </p>
+
+                                    <form method="post" th:unless="${plot.planting}">
+
+                                        <input hidden name="plotId" th:value="${plot.id}"/>
+
+                                       <select  th:name="plantName">
                                             <option th:each="plant : ${plants}"
                                                     th:value="${plant.name}"
                                                     th:text="${plant.name}"
                                             ></option>
                                        </select>
-
                                         <button th:text="Plant"></button>
-
                                     </form>
-
-                                </td>
-                            </th:block>
-                        </tr>
+                                </div>
                     </th:block>
 
-                    </table>
+                    </div>
                         </div>
                     </div>
                 </div>

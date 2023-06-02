@@ -64,6 +64,9 @@ a:hover {
 
 
 .garden-detail-table {
+  display: grid;
+
+  column-gap: 10px;
     width: 100%;
     border-radius: 1rem;
     color: hsla(28, 22%, 17%, 1);
@@ -72,6 +75,7 @@ a:hover {
 
 
 .garden-detail-td {
+    margin: 0.5rem;
     padding: 1rem;
     border-radius: 1rem;
     background: hsla(83, 90%, 80%, 0.5);

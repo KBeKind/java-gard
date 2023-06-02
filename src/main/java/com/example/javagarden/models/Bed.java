@@ -32,6 +32,7 @@ public class Bed extends NamedEntity{
     @Max(value = 10, message = "10 is the maximum for length")
     private int bedLengthPlots;
 
+    private int plotTotal;
 
     public Bed(String name, Garden garden, int bedWidthPlots, int bedLengthPlots, int plotTotal) {
 
@@ -39,6 +40,7 @@ public class Bed extends NamedEntity{
         this.garden = garden;
         this.bedWidthPlots = bedWidthPlots;
         this.bedLengthPlots = bedLengthPlots;
+        this.plotTotal = plotTotal;
         createPlots(plotTotal);
     }
 
@@ -77,6 +79,14 @@ public class Bed extends NamedEntity{
 
     public void setBedLengthPlots(int bedLengthPlots) {
         this.bedLengthPlots = bedLengthPlots;
+    }
+
+    public int getPlotTotal() {
+        return plotTotal;
+    }
+
+    public void setPlotTotal(int plotTotal) {
+        this.plotTotal = plotTotal;
     }
 
     public void addPlot() {

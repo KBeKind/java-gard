@@ -1,9 +1,5 @@
 package com.example.javagarden.controllers.dto;
 
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 
 public class PlantingDTO {
 
@@ -19,6 +15,7 @@ public class PlantingDTO {
         this.plotId = plotId;
         this.gardenId = gardenId;
     }
+
 
     public PlantingDTO() {
     }
@@ -48,3 +45,5 @@ public class PlantingDTO {
         this.gardenId = gardenId;
     }
 }
+
+

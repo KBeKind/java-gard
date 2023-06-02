@@ -44,4 +44,9 @@ public class Planting extends AbstractEntity{
     public void setPlantName(String plantName) {
         this.plantName = plantName;
     }
+
+
+
+
+
 }

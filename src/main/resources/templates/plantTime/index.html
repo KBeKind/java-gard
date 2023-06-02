@@ -6,11 +6,9 @@
 <header th:replace="~{fragments :: header}"></header>
 
 <table class="table table-striped">
-    <thead>
-    <tr>
-        <th>Plant Time List</th>
-    </tr>
-    </thead>
+
+        <h2>Plant Time List</h2>
+
     <tr th:each="plantTime : ${plantTimes}">
         <td><a th:text="${plantTime.name}" th:href="'/plant?plantTimeId=' + ${plantTime.id}"></a></td>
     </tr>
