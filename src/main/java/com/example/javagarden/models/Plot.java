@@ -12,8 +12,10 @@ public class Plot extends AbstractEntity{
         @NotNull(message = "Bed is required")
         private Bed bed;
 
-        @OneToOne
+        @OneToOne(cascade = CascadeType.ALL)
         private Planting planting;
+
+
 
 
         public Plot(Bed bed) {
@@ -39,6 +41,16 @@ public class Plot extends AbstractEntity{
         this.planting = planting;
     }
 
+    public void removePlanting(Planting planting) {
+            this.planting = null;
+    }
+
+    public boolean hasPlanting(){
+            if (this.planting == null){
+                return false;
+            }
+            return true;
+    }
 
     @Override
     public String toString() {

@@ -48,8 +48,6 @@ public class GardenController {
     }
 
 
-
-
     @GetMapping("start")
     public String displayStartGardenForm(Model model) {
 
@@ -63,7 +61,7 @@ public class GardenController {
     }
 
     @PostMapping("start")
-    public String processStartGardenForm(@ModelAttribute @Valid GardenStartDTO gardenStartDTO, Errors errors, Model model){
+    public String processStartGardenForm(@ModelAttribute @Valid GardenStartDTO gardenStartDTO, Errors errors, Model model) {
 
 
         if (errors.hasErrors()) {
@@ -74,8 +72,8 @@ public class GardenController {
         int bedNum = gardenStartDTO.getBedNum();
         String name = gardenStartDTO.getName();
 
-    return"redirect:../garden/create?bedNum="+ bedNum +"&name="+ name;
-}
+        return "redirect:../garden/create?bedNum=" + bedNum + "&name=" + name;
+    }
 
     @GetMapping("create")
     public String displayCreateGardenForm(@RequestParam(value = "bedNum") int bedNum, @RequestParam("name") String name, Model model) {
@@ -131,7 +129,7 @@ public class GardenController {
 
     @PostMapping("delete")
     public String processDeleteGardenForm(@RequestParam(required = false) int[] gardenIds) {
-        DeleteService.deleteData( gardenIds, gardenRepository);
+        DeleteService.deleteData(gardenIds, gardenRepository);
         return "redirect:../garden";
 
     }
@@ -163,10 +161,8 @@ public class GardenController {
     }
 
 
-
-
     @PostMapping("detail")
-    public String processGardenDetails(@Valid @ModelAttribute PlantingDTO plantingDTO, @RequestParam String plantName, @RequestParam Integer plotId,  Model model){
+    public String processGardenDetails(@Valid @ModelAttribute PlantingDTO plantingDTO, @RequestParam(required = false) String plantName, @RequestParam(required = false) Integer plotId, Model model) {
 
 
         Optional<Plot> result = plotRepository.findById(plotId);
@@ -177,22 +173,26 @@ public class GardenController {
 
         } else {
 
-            Plot plot = result.get();
-            Planting planting = new Planting(plot, plantName);
+                            Plot plot = result.get();
 
-            plot.setPlanting(planting);
-            plantingRepository.save(planting);
-//            return "redirect:../garden";
-            return "redirect:/garden/detail?gardenId="+plantingDTO.getGardenId();
+            if (plot.hasPlanting()) {
+
+                Planting planting = plot.getPlanting();
+                plot.removePlanting(planting);
+                plantingRepository.delete(planting);
+                return "redirect:/garden/detail?gardenId=" + plantingDTO.getGardenId();
+
+            } else {
+
+                Planting planting = new Planting(plot, plantName);
+                plot.setPlanting(planting);
+                plantingRepository.save(planting);
+                return "redirect:/garden/detail?gardenId=" + plantingDTO.getGardenId();
+
+            }
 
         }
 
+
     }
-
-
-
-
-
-
-
 }

@@ -13,9 +13,10 @@ import jakarta.validation.constraints.NotNull;
 public class Planting extends AbstractEntity{
 
 
-    @OneToOne(cascade = CascadeType.ALL)
+
     @Valid
     @NotNull
+    @OneToOne
     private Plot plot;
 
 

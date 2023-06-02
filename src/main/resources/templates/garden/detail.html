@@ -24,11 +24,26 @@
 
                                 <th:block th:each="plot: ${bed.plots}">
                                 <div class="garden-detail-td">
+                                    <a href="/garden">Plot Details</a>
                                     <p th:text="${plot.id}"></p>
 
-                                    <p th:if="${plot.planting}" th:text="${plot.planting.plantName}">
+                                    <div th:if="${plot.planting}">
 
-                                    </p>
+                                        <p th:text="${plot.planting.plantName}"></p>
+
+                                        <p>Time Left:</p>
+
+                                        <form method="post">
+                                            <input hidden name="plotId" th:value="${plot.id}"/>
+                                        <button class="btn btn-secondary" th:onclick="myFunction()">Remove</button>
+                                        </form>
+
+
+
+
+
+
+                                    </div>
 
                                     <form method="post" th:unless="${plot.planting}">
 
@@ -40,7 +55,7 @@
                                                     th:text="${plant.name}"
                                             ></option>
                                        </select>
-                                        <button th:text="Plant"></button>
+                                        <button class="btn btn-primary" th:text="Plant"></button>
                                     </form>
                                 </div>
                     </th:block>
