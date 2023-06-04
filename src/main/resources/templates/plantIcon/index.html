@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="~{fragments :: head}"></head>
+<body class="container">
+
+<header th:replace="~{fragments :: header}"></header>
+
+<table class="table table-striped">
+
+        <h2>Plant Time List</h2>
+
+    <tr th:each="plantIcon : ${plantIcons}">
+        <td><a th:text="${plantIcon.id" th:href="'/plantIcon?plantIconId=' + ${plantIcon.id}"></a></td>
+    </tr>
+
+</table>
+
+</body>
+</html>

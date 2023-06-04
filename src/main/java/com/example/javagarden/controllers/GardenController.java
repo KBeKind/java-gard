@@ -93,20 +93,13 @@ public class GardenController {
     @PostMapping("create")
     public String processCreateGardenForm(@Valid @ModelAttribute Garden garden, HttpServletRequest request, Errors errors, Model model) {
 
-        String[] bedNames = request.getParameterValues("bedName");
 
-        int[] bedWidthPlots = Arrays.stream(request.getParameterValues("bedWidthPlots"))
-                .mapToInt(Integer::parseInt)
-                .toArray();
-        int[] bedLengthPlots = Arrays.stream(request.getParameterValues("bedLengthPlots"))
+        int[] selectedIconList = Arrays.stream(request.getParameterValues("selectedIcon"))
                 .mapToInt(Integer::parseInt)
                 .toArray();
 
-        for (int i = 0; i < bedNames.length; i++) {
-            int plotTotal = bedWidthPlots[i] * bedLengthPlots[i];
-            garden.addBed(bedNames[i], bedWidthPlots[i], bedLengthPlots[i], plotTotal);
 
-        }
+
 
         if (errors.hasErrors()) {
             model.addAttribute("title", "Create Garden");

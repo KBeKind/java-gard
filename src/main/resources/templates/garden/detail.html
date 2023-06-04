@@ -35,10 +35,8 @@
 
                                         <form method="post">
                                             <input hidden name="plotId" th:value="${plot.id}"/>
-                                        <button class="btn btn-secondary" th:onclick="myFunction()">Remove</button>
+                                        <button class="btn btn-secondary">Remove</button>
                                         </form>
-
-
 
 
 
@@ -50,7 +48,8 @@
                                         <input hidden name="plotId" th:value="${plot.id}"/>
 
                                        <select  th:name="plantName">
-                                            <option th:each="plant : ${plants}"
+                                            <option>Select Plant</option>
+                                           <option th:each="plant : ${plants}"
                                                     th:value="${plant.name}"
                                                     th:text="${plant.name}"
                                             ></option>

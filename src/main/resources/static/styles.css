@@ -64,6 +64,7 @@ a:hover {
 .garden-detail-table {
   display: grid;
 
+
   column-gap: 10px;
     width: 100%;
     border-radius: 1rem;
@@ -117,4 +118,22 @@ a:hover {
 
     max-width: 100%;
     overflow-x: scroll;
+}
+
+.iconSelectionMenu {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+}
+
+.iconSelectionIcon {
+ background: hsla(83, 90%, 80%, 1);
+  border: 1px solid black;
+  padding: 10px;
+  margin: 10px;
+
+}
+
+.active {
+  background-color: green;
 }

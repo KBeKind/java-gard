@@ -1,15 +1,12 @@
 package com.example.javagarden.models;
 
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
+
 import jakarta.validation.constraints.NotNull;
 
 
-import java.util.ArrayList;
-import java.util.List;
 
 
 @Entity
@@ -20,8 +17,14 @@ public class Plant extends NamedEntity {
     private PlantTime plantTime;
 
 
-    public Plant( PlantTime plantTime) {
+    @ManyToOne
+//    @NotNull(message = "Plant Icon is required")
+    private PlantIcon plantIcon;
+
+
+    public Plant(PlantTime plantTime, PlantIcon plantIcon) {
         this.plantTime = plantTime;
+        this.plantIcon = plantIcon;
     }
 
     public Plant() {
@@ -35,7 +38,12 @@ public class Plant extends NamedEntity {
         this.plantTime = plantTime;
     }
 
+    public PlantIcon getPlantIcon() {
+        return plantIcon;
+    }
 
-
+    public void setPlantIcon(PlantIcon plantIcon) {
+        this.plantIcon = plantIcon;
+    }
 }
 

@@ -1,11 +1,14 @@
 package com.example.javagarden.controllers;
 
+import com.example.javagarden.data.PlantIconRepository;
 import com.example.javagarden.data.PlantRepository;
 
 import com.example.javagarden.data.PlantTimeRepository;
 import com.example.javagarden.models.Plant;
+
 import com.example.javagarden.models.PlantTime;
 import com.example.javagarden.service.DeleteService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
 import java.util.Optional;
 
 @Controller
@@ -24,6 +28,10 @@ public class PlantController {
 
     @Autowired
     private PlantTimeRepository plantTimeRepository;
+
+    @Autowired
+    private PlantIconRepository plantIconRepository;
+
 
     @GetMapping
     public String displayPlants(@RequestParam(required = false) Integer plantTimeId, Model model) {
@@ -48,16 +56,16 @@ public class PlantController {
 
 
 
-
-
-
-
-
     @GetMapping("create")
     public String displayCreatePlantForm(Model model) {
         model.addAttribute("title", "Create Plant");
         model.addAttribute(new Plant());
         model.addAttribute("plantTimes", plantTimeRepository.findAll());
+        model.addAttribute("plantIcons", plantIconRepository.findAll());
+
+
+
+
         return "plant/create";
     }
 
@@ -76,13 +84,6 @@ public class PlantController {
 
         return "redirect:../plant";
     }
-
-
-
-
-
-
-
 
 
 

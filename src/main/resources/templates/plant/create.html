@@ -12,6 +12,23 @@
         </label>
         <span th:errors="${plant.name}" class="error"></span>
     </div>
+
+
+    <div class="form-group">
+        <label>Plant Icon
+            <div class="iconSelectionMenu">
+                <th:block th:each="icon : ${plantIcons}">
+                    <div th:class="iconSelectionIcon">
+                     <input type="radio" th:field="${plant.plantIcon}" value="${icon.id}"/>
+                    <img th:src="'/images/' + ${icon.src} + '.png'" alt="${icon.description}" width="60" />
+                    </div>
+                </th:block>
+            </div>
+
+<!--            <p class="error" th:errors="${plant.plantTime}"></p>-->
+        </label>
+    </div>
+
     <div class="form-group">
         <label>Plant Time
             <select th:field="${plant.plantTime}">
@@ -27,6 +44,9 @@
 
     <input type="submit" value="Create" class="btn btn-primary">
 </form>
+
+
+
 
 </body>
 </html>
