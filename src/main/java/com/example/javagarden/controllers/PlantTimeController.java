@@ -1,12 +1,11 @@
 package com.example.javagarden.controllers;
 
 import com.example.javagarden.data.PlantTimeRepository;
-import com.example.javagarden.data.UserRepository;
-import com.example.javagarden.models.Garden;
+//import com.example.javagarden.data.UserRepository;
 import com.example.javagarden.models.PlantTime;
 
-import com.example.javagarden.models.User;
-import com.example.javagarden.models.UserGardenData;
+
+
 import com.example.javagarden.service.DeleteService;
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -30,8 +29,8 @@ public class PlantTimeController {
     private PlantTimeRepository plantTimeRepository;
 
 
-    @Autowired
-    private UserRepository userRepository;
+//    @Autowired
+//    private UserRepository userRepository;
 
 
     @GetMapping
@@ -57,18 +56,18 @@ public class PlantTimeController {
     @PostMapping("create")
     public String processCreatePlantTimeForm(@Valid @ModelAttribute PlantTime plantTime,
                                              Errors errors, Model model, HttpServletRequest request) {
-
-        HttpSession session = request.getSession();
-
-        Integer userId = (Integer) session.getAttribute("user");
-
-        Optional<User> result = userRepository.findById(userId);
-//        if (result.isEmpty()) {
-//            model.addAttribute("title", "Invalid Event ID: " + gardenId);
-//        } else {
-        User user = result.get();
-
-        UserGardenData userGardenData = user.getUserGardenData();
+//
+//        HttpSession session = request.getSession();
+//
+//        Integer userId = (Integer) session.getAttribute("user");
+//
+//        Optional<UserEntity> result = userRepository.findById(userId);
+////        if (result.isEmpty()) {
+////            model.addAttribute("title", "Invalid Event ID: " + gardenId);
+////        } else {
+//        UserEntity userEntity = result.get();
+//
+//        UserGardenData userGardenData = userEntity.getUserGardenData();
 
         if (errors.hasErrors()) {
             model.addAttribute("title", "Create Plant Time");
@@ -77,7 +76,7 @@ public class PlantTimeController {
         }
 
 
-        plantTime.setUserGardenData(userGardenData);
+//        plantTime.setUserGardenData(userGardenData);
 
         plantTimeRepository.save(plantTime);
         return "redirect:../planttime";

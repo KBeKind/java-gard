@@ -9,6 +9,7 @@ import com.example.javagarden.models.Plant;
 import com.example.javagarden.models.PlantTime;
 import com.example.javagarden.service.DeleteService;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -32,13 +33,20 @@ public class PlantController {
     @Autowired
     private PlantIconRepository plantIconRepository;
 
+    @Autowired
+    private AuthenticationController authenticationController;
 
     @GetMapping
-    public String displayPlants(@RequestParam(required = false) Integer plantTimeId, Model model) {
+    public String displayPlants(@RequestParam(required = false) Integer plantTimeId, Model model, HttpServletRequest request) {
+
+        HttpSession session = request.getSession();
+        Integer testId = authenticationController.getUserFromSession(session).getId();
+
 
         if (plantTimeId == null) {
             model.addAttribute("title", "All Plants");
             model.addAttribute("plants", plantRepository.findAll());
+            model.addAttribute("testId", testId);
         } else {
             Optional<PlantTime> result = plantTimeRepository.findById(plantTimeId);
             if (result.isEmpty()) {
@@ -52,6 +60,7 @@ public class PlantController {
 
         return "plant/index";
     }
+
 
 
 

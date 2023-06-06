@@ -9,6 +9,8 @@
 
     <h2>Plant List</h2>
 
+    <h1 th:text="${testId}"></h1>
+
     <tr th:each="plant : ${plants}">
         <td><a th:href="'/plant/detail?plantId=' + ${plant.id}" th:text="${plant.name}"></a></td>
         <td>
