@@ -12,6 +12,10 @@ header {
 
 }
 
+.standard-text-color {
+ color: hsla(83, 90%, 80%, 1);
+}
+
 a:link {
   color: hsla(83, 90%, 80%, 1);
 }

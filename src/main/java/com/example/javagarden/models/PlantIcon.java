@@ -14,6 +14,7 @@ public class PlantIcon extends AbstractEntity {
     private final List<Plant> plants = new ArrayList<>();
 
 
+
     private String src;
 
     private String description;
@@ -47,5 +48,7 @@ public class PlantIcon extends AbstractEntity {
     public void setDescription(String description) {
         this.description = description;
     }
+
+
 }
 

@@ -1,9 +1,9 @@
 package com.example.javagarden.controllers;
 
-import com.example.javagarden.controllers.dto.PlantingDTO;
+import com.example.javagarden.models.dto.PlantingDTO;
 import com.example.javagarden.data.*;
 
-import com.example.javagarden.controllers.dto.GardenStartDTO;
+import com.example.javagarden.models.dto.GardenStartDTO;
 import com.example.javagarden.models.*;
 
 import com.example.javagarden.service.DeleteService;
@@ -15,9 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -78,14 +76,11 @@ public class GardenController {
     @GetMapping("create")
     public String displayCreateGardenForm(@RequestParam(value = "bedNum") int bedNum, @RequestParam("name") String name, Model model) {
 
-
         Garden garden = new Garden(name);
-
 
         model.addAttribute("title", "Create Garden");
         model.addAttribute("garden", garden);
         model.addAttribute("bedNum", bedNum);
-
 
         return "garden/create";
     }
@@ -93,12 +88,21 @@ public class GardenController {
     @PostMapping("create")
     public String processCreateGardenForm(@Valid @ModelAttribute Garden garden, HttpServletRequest request, Errors errors, Model model) {
 
+        String[] bedNames = request.getParameterValues("bedName");
 
-        int[] selectedIconList = Arrays.stream(request.getParameterValues("selectedIcon"))
+        int[] bedWidthPlots = Arrays.stream(request.getParameterValues("bedWidthPlots"))
+                .mapToInt(Integer::parseInt)
+                .toArray();
+        int[] bedLengthPlots = Arrays.stream(request.getParameterValues("bedLengthPlots"))
                 .mapToInt(Integer::parseInt)
                 .toArray();
 
 
+        for (int i = 0; i < bedNames.length; i++) {
+            int plotTotal = bedWidthPlots[i] * bedLengthPlots[i];
+            garden.addBed(bedNames[i], bedWidthPlots[i], bedLengthPlots[i], plotTotal);
+
+        }
 
 
         if (errors.hasErrors()) {
@@ -140,14 +144,20 @@ public class GardenController {
             model.addAttribute("garden", garden);
             model.addAttribute("plants", plantRepository.findAll());
 
-            int columns = 4;
-            model.addAttribute("columns", columns);
+
+//            int columns = 4;
+//            model.addAttribute("columns", columns);
+            // check if i still need the above code
+
+
             PlantingDTO plantingDTO = new PlantingDTO();
             plantingDTO.setGardenId(gardenId);
             model.addAttribute("plantingDTO", plantingDTO);
 
-            String plantName = "";
-            model.addAttribute("plantName", plantName);
+            Integer plantId=0;
+            model.addAttribute("plantId", plantId);
+
+
 
         }
         return "garden/detail";
@@ -155,7 +165,7 @@ public class GardenController {
 
 
     @PostMapping("detail")
-    public String processGardenDetails(@Valid @ModelAttribute PlantingDTO plantingDTO, @RequestParam(required = false) String plantName, @RequestParam(required = false) Integer plotId, Model model) {
+    public String processGardenDetails(@Valid @ModelAttribute PlantingDTO plantingDTO, @RequestParam(required = false) Integer plantId, @RequestParam(required = false) Integer plotId, Model model) {
 
 
         Optional<Plot> result = plotRepository.findById(plotId);
@@ -166,7 +176,7 @@ public class GardenController {
 
         } else {
 
-                            Plot plot = result.get();
+            Plot plot = result.get();
 
             if (plot.hasPlanting()) {
 
@@ -177,15 +187,27 @@ public class GardenController {
 
             } else {
 
-                Planting planting = new Planting(plot, plantName);
-                plot.setPlanting(planting);
-                plantingRepository.save(planting);
-                return "redirect:/garden/detail?gardenId=" + plantingDTO.getGardenId();
+                Optional<Plant> plantResult = plantRepository.findById(plantId);
+                if (plantResult.isEmpty()) {
+//                    model.addAttribute("title", "Invalid Category ID: ");
+//                  ADD ERROR HANDLING IF NEEDED
+                    return "redirect:../";
+
+                } else {
+
+                    Plant plant = plantResult.get();
+
+
+                    Planting planting = new Planting(plot, plant);
+                    plot.setPlanting(planting);
+                    plantingRepository.save(planting);
+                    return "redirect:/garden/detail?gardenId=" + plantingDTO.getGardenId();
+
+                }
 
             }
 
+
         }
-
-
     }
 }

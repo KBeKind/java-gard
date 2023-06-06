@@ -19,13 +19,13 @@
             <div class="iconSelectionMenu">
                 <th:block th:each="icon : ${plantIcons}">
                     <div th:class="iconSelectionIcon">
-                     <input type="radio" th:field="${plant.plantIcon}" value="${icon.id}"/>
+                     <input type="radio" th:field="${plant.plantIcon}" th:value="${icon.id}"/>
                     <img th:src="'/images/' + ${icon.src} + '.png'" alt="${icon.description}" width="60" />
                     </div>
                 </th:block>
             </div>
 
-<!--            <p class="error" th:errors="${plant.plantTime}"></p>-->
+            <p class="error" th:errors="${plant.plantIcon}"></p>
         </label>
     </div>
 

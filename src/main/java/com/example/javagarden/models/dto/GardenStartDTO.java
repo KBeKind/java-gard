@@ -1,4 +1,4 @@
-package com.example.javagarden.controllers.dto;
+package com.example.javagarden.models.dto;
 
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;

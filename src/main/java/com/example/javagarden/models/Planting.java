@@ -3,6 +3,7 @@ package com.example.javagarden.models;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
@@ -13,18 +14,20 @@ import jakarta.validation.constraints.NotNull;
 public class Planting extends AbstractEntity{
 
 
-
     @Valid
     @NotNull
     @OneToOne
     private Plot plot;
 
 
-    private String plantName;
+    @ManyToOne
+    private Plant plant;
 
-    public Planting(Plot plot, String plantName) {
+
+    public Planting(Plot plot, Plant plant) {
         this.plot = plot;
-        this.plantName = plantName;
+        this.plant = plant;
+
     }
 
     public Planting() {
@@ -38,16 +41,13 @@ public class Planting extends AbstractEntity{
         this.plot = plot;
     }
 
-    public String getPlantName() {
-        return plantName;
+
+
+    public Plant getPlant() {
+        return plant;
     }
 
-    public void setPlantName(String plantName) {
-        this.plantName = plantName;
+    public void setPlant(Plant plant) {
+        this.plant = plant;
     }
-
-
-
-
-
 }

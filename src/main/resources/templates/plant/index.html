@@ -5,12 +5,15 @@
 
 <header th:replace="fragments :: header"></header>
 
-<table class="table table-striped">
+<table class="table table-striped standard-text-color">
 
     <h2>Plant List</h2>
 
     <tr th:each="plant : ${plants}">
         <td><a th:href="'/plant/detail?plantId=' + ${plant.id}" th:text="${plant.name}"></a></td>
+        <td>
+            <img th:src="'/images/' + ${plant.plantIcon.src} + '.png'" alt="${plant.plantIcon.description}" width="60" />
+        </td>
         <td th:text="${plant.plantTime.name}"></td>
 
 

@@ -1,19 +1,24 @@
-package com.example.javagarden.controllers.dto;
+package com.example.javagarden.models.dto;
 
+
+import com.example.javagarden.models.PlantIcon;
 
 public class PlantingDTO {
 
 
-    String name;
+    private String name;
 
-    int plotId;
+    private int plotId;
 
-    int gardenId;
+    private int gardenId;
 
-    public PlantingDTO(String name, int plotId, int gardenId) {
+    private PlantIcon plantIcon;
+
+    public PlantingDTO(String name, int plotId, int gardenId, PlantIcon plantIcon) {
         this.name = name;
         this.plotId = plotId;
         this.gardenId = gardenId;
+        this.plantIcon = plantIcon;
     }
 
 
@@ -43,6 +48,14 @@ public class PlantingDTO {
 
     public void setGardenId(int gardenId) {
         this.gardenId = gardenId;
+    }
+
+    public PlantIcon getPlantIcon() {
+        return plantIcon;
+    }
+
+    public void setPlantIcon(PlantIcon plantIcon) {
+        this.plantIcon = plantIcon;
     }
 }
 
