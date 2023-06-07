@@ -1,11 +1,12 @@
 package com.example.javagarden.models;
 
 import com.example.javagarden.models.AbstractEntity;
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class User extends AbstractEntity {
@@ -19,6 +20,11 @@ public class User extends AbstractEntity {
 //    @NotNull
     @OneToOne(cascade = CascadeType.ALL)
     private UserGardenData userGardenData;
+
+
+    @ManyToOne
+    @NotNull(message = "User Garden Data is is required")
+    private Role role;
 
     private static final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
@@ -43,5 +49,13 @@ public class User extends AbstractEntity {
 
     public void setUserGardenData(UserGardenData userGardenData) {
         this.userGardenData = userGardenData;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 }

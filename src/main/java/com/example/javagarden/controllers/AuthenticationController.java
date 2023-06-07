@@ -1,7 +1,9 @@
 package com.example.javagarden.controllers;
 
 
+import com.example.javagarden.data.RoleRepository;
 import com.example.javagarden.data.UserRepository;
+import com.example.javagarden.models.Role;
 import com.example.javagarden.models.User;
 
 import com.example.javagarden.models.UserGardenData;
@@ -25,6 +27,9 @@ public class AuthenticationController {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private RoleRepository roleRepository;
 
     private static final String userSessionKey = "user";
 
@@ -84,7 +89,13 @@ public class AuthenticationController {
 
         UserGardenData userGardenData = new UserGardenData(newUser);
 
+        Role role = roleRepository.getReferenceById(1);
+
+        newUser.setRole(role);
+
         newUser.setUserGardenData(userGardenData);
+
+
 
         userRepository.save(newUser);
         setUserInSession(request.getSession(), newUser);
