@@ -7,6 +7,7 @@ import com.example.javagarden.models.dto.GardenStartDTO;
 import com.example.javagarden.models.*;
 
 import com.example.javagarden.service.DeleteService;
+import com.example.javagarden.service.UserGardenDataService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
@@ -23,7 +24,6 @@ import java.util.Optional;
 @RequestMapping("garden")
 public class GardenController {
 
-
     @Autowired
     private GardenRepository gardenRepository;
 
@@ -39,20 +39,16 @@ public class GardenController {
     @Autowired
     private PlantingRepository plantingRepository;
 
-
     @Autowired
-    private UserRepository userRepository;
-
-
-    @Autowired
-    private AuthenticationController authenticationController;
-
-
+    private UserGardenDataService userGardenDataService;
 
     @GetMapping
-    public String displayGarden(Model model) {
+    public String displayGarden(Model model, HttpServletRequest request) {
+
+        UserGardenData userGardenData = userGardenDataService.getUserGardenData(request);
+
         model.addAttribute("title", "Gardens");
-        model.addAttribute("gardens", gardenRepository.findAll());
+        model.addAttribute("gardens", userGardenData.getGardens());
         return "garden/index";
     }
 
@@ -115,24 +111,13 @@ public class GardenController {
 
         }
 
-
-
         if (errors.hasErrors()) {
             model.addAttribute("title", "Create Garden");
             model.addAttribute(new Garden());
             return "garden/create";
         }
 
-        HttpSession session = request.getSession();
-        Integer testId = authenticationController.getUserFromSession(session).getId();
-
-        Optional< User > userResult = userRepository.findById(testId);
-
-        //add error check!!!
-
-        User user = userResult.get();
-
-        UserGardenData userGardenData = user.getUserGardenData();
+        UserGardenData userGardenData = userGardenDataService.getUserGardenData(request);
 
         garden.setUserGardenData(userGardenData);
 
@@ -140,7 +125,6 @@ public class GardenController {
         return "redirect:../garden";
 
     }
-
 
     @GetMapping("delete")
     public String displayDeleteGardenForm(Model model) {
@@ -153,9 +137,7 @@ public class GardenController {
     public String processDeleteGardenForm(@RequestParam(required = false) int[] gardenIds) {
         DeleteService.deleteData(gardenIds, gardenRepository);
         return "redirect:../garden";
-
     }
-
 
     @GetMapping("detail")
     public String displayGardenDetails(@RequestParam Integer gardenId, Model model) {
@@ -170,19 +152,12 @@ public class GardenController {
             model.addAttribute("plants", plantRepository.findAll());
 
 
-//            int columns = 4;
-//            model.addAttribute("columns", columns);
-            // check if i still need the above code
-
-
             PlantingDTO plantingDTO = new PlantingDTO();
             plantingDTO.setGardenId(gardenId);
             model.addAttribute("plantingDTO", plantingDTO);
 
             Integer plantId=0;
             model.addAttribute("plantId", plantId);
-
-
 
         }
         return "garden/detail";
@@ -191,7 +166,6 @@ public class GardenController {
 
     @PostMapping("detail")
     public String processGardenDetails(@Valid @ModelAttribute PlantingDTO plantingDTO, @RequestParam(required = false) Integer plantId, @RequestParam(required = false) Integer plotId, Model model) {
-
 
         Optional<Plot> result = plotRepository.findById(plotId);
         if (result.isEmpty()) {
@@ -221,7 +195,6 @@ public class GardenController {
                 } else {
 
                     Plant plant = plantResult.get();
-
 
                     Planting planting = new Planting(plot, plant);
                     plot.setPlanting(planting);
