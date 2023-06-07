@@ -15,10 +15,16 @@ public class WebApplicationConfig implements WebMvcConfigurer {
         return new AuthenticationFilter();
     }
 
+    @Bean
+    public AuthorizationFilter authorizationFilter() {
+        return new AuthorizationFilter();
+    }
+
     // Register the filter with the Spring container
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor( authenticationFilter() );
+        registry.addInterceptor( authorizationFilter() );
     }
 
 }

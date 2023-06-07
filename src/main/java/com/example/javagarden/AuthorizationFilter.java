@@ -1,6 +1,5 @@
 package com.example.javagarden;
 
-
 import com.example.javagarden.controllers.AuthenticationController;
 import com.example.javagarden.data.UserRepository;
 import com.example.javagarden.models.User;
@@ -14,8 +13,7 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
-public class AuthenticationFilter implements HandlerInterceptor {
-
+public class AuthorizationFilter implements HandlerInterceptor {
     @Autowired
     UserRepository userRepository;
 
@@ -23,17 +21,15 @@ public class AuthenticationFilter implements HandlerInterceptor {
     AuthenticationController authenticationController;
 
 
-    private static final List<String> whitelist = Arrays.asList("/login", "/register", "/logout", "/css");
-
-    public AuthenticationFilter() {
+    public AuthorizationFilter() {
     }
-
-
 
     @Override
     public boolean preHandle(HttpServletRequest request,
                              HttpServletResponse response,
                              Object handler) throws IOException {
+
+
 
         // Don't require sign-in for whitelisted pages
         if (isWhitelisted(request.getRequestURI())) {
@@ -41,27 +37,30 @@ public class AuthenticationFilter implements HandlerInterceptor {
             return true;
         }
 
+
         HttpSession session = request.getSession();
         User user = authenticationController.getUserFromSession(session);
 
         // The user is logged in
         if (user != null) {
-            return true;
+            // Check if the user has the required role
+            boolean hasRole = (user.getRole().getId() == 2);
+            if (hasRole) {
+                return true;
+            }
         }
 
-        // The user is NOT logged in
-        response.sendRedirect("/login");
+        // The user is NOT logged in or does not have the required role
+        response.sendRedirect("/oops");
         return false;
     }
-
+    private static final List<String> adminList = Arrays.asList("/admin");
     private static boolean isWhitelisted(String path) {
-        for (String pathRoot : whitelist) {
-            if (path.startsWith(pathRoot)) {
+        for (String pathRoot : adminList) {
+            if (!path.startsWith(pathRoot)) {
                 return true;
             }
         }
         return false;
     }
-
 }
-

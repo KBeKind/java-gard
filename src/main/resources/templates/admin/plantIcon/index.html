@@ -5,12 +5,14 @@
 
 <header th:replace="~{fragments :: header}"></header>
 
+<div th:replace="~{fragments :: adminMenu}"></div>
+
 <table class="table table-striped">
 
-        <h2>Plant Time List</h2>
+        <h2>Plant Icon List</h2>
 
     <tr th:each="plantIcon : ${plantIcons}">
-        <td><a th:text="${plantIcon.id" th:href="'/plantIcon?plantIconId=' + ${plantIcon.id}"></a></td>
+        <td><a th:text="${plantIcon.id" th:href="'/admin/plantIcon?plantIconId=' + ${plantIcon.id}"></a></td>
     </tr>
 
 </table>

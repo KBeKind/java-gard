@@ -13,7 +13,7 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping("planticon")
+@RequestMapping("admin/planticon")
 public class PlantIconController {
 
     @Autowired
@@ -23,14 +23,14 @@ public class PlantIconController {
     public String displayAllPlantIcons(Model model) {
         model.addAttribute("title", "All Plant Icons");
         model.addAttribute("plantTimes", plantIconRepository.findAll());
-        return "planticon/index";
+        return "admin/planticon/index";
     }
 
     @GetMapping("create")
     public String renderCreatePlantIconForm(Model model) {
         model.addAttribute("title", "Create Plant Icon");
         model.addAttribute(new PlantIcon());
-        return "plantIcon/create";
+        return "admin/plantIcon/create";
     }
 
 
@@ -42,11 +42,11 @@ public class PlantIconController {
         if (errors.hasErrors()) {
             model.addAttribute("title", "Create Plant Icon");
             model.addAttribute(new PlantIcon());
-            return "planticon/create";
+            return "admin/planticon/create";
         }
 
         plantIconRepository.save(plantIcon);
-        return "redirect:../planticon";
+        return "redirect:../admin/planticon";
     }
 
 
@@ -54,7 +54,7 @@ public class PlantIconController {
     public String displayDeletePlantIconForm(Model model) {
         model.addAttribute("title", "Delete Plant Icons");
         model.addAttribute("plantIcons", plantIconRepository.findAll());
-        return "planticon/delete";
+        return "admin/planticon/delete";
     }
 
     @PostMapping("delete")

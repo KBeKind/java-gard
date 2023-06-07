@@ -20,6 +20,7 @@
 <header th:fragment="header">
     <h1 th:text="${title}">Garden Time</h1>
     <ul class="nav">
+        <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
         <li class="nav-item"><a class="nav-link" href="/plant">All Plants</a></li>
         <li class="nav-item"><a class="nav-link" href="/plant/create">Create Plant</a></li>
         <li class="nav-item"><a class="nav-link" href="/plant/delete">Delete Plants</a></li>
@@ -29,16 +30,22 @@
         <li class="nav-item"><a class="nav-link" href="/garden">Garden List</a></li>
         <li class="nav-item"><a class="nav-link" href="/garden/start">Start Garden</a></li>
         <li class="nav-item"><a class="nav-link" href="/garden/delete">Delete Garden</a></li>
-        <li class="nav-item"><a class="nav-link" href="/planticon">All Plant Icons</a></li>
-        <li class="nav-item"><a class="nav-link" href="/planticon/create">Create Plant Icon</a></li>
-        <li class="nav-item"><a class="nav-link" href="/planticon/delete">Delete Plant Icon</a></li>
-        <li class="nav-item"><a class="nav-link" href="/login">Login</a></li>
+
         <li class="nav-item"><a class="nav-link" href="/logout">Logout</a></li>
 
-
+        <li class="nav-item"><a class="nav-link" href="/admin/index">Admin</a></li>
     </ul>
 </header>
 
 
+<div th:fragment="adminMenu">
+
+    <ul>
+        <li class="nav-item"><a class="nav-link" href="/admin/planticon">All Plant Icons</a></li>
+        <li class="nav-item"><a class="nav-link" href="/admin/planticon/create">Create Plant Icon</a></li>
+        <li class="nav-item"><a class="nav-link" href="/admin/planticon/delete">Delete Plant Icon</a></li>
+    </ul>
+
+</div>
 </body>
 </html>

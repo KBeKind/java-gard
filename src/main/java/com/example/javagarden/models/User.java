@@ -23,7 +23,7 @@ public class User extends AbstractEntity {
 
 
     @ManyToOne
-    @NotNull(message = "User Garden Data is is required")
+    @NotNull(message = "User Role is required")
     private Role role;
 
     private static final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();

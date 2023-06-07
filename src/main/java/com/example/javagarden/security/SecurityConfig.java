@@ -1,33 +1,30 @@
 package com.example.javagarden.security;
 //
 //
-//import com.example.javagarden.AuthenticationFilter;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.web.SecurityFilterChain;
-
-//import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
-//import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+//import com.example.javagarden.data.RoleRepository;
+//import com.example.javagarden.data.UserRepository;
+//import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.context.annotation.Configuration;
+//import org.springframework.security.
 //
 //@Configuration
-//@EnableWebSecurity
-//public class SecurityConfig {
+//public class SecurityConfig extends WebSecurityConfigurerAdapter  {
 //
-//    // Create spring-managed object to allow the app to access our filter
-//    @Bean
-//    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-//        http
+//    @Autowired
+//    private UserRepository userRepository;
 //
+//    @Autowired
+//    private RoleRepository roleRepository;
 //
-//    }
-//
-//    // Register the filter with the Spring container
 //    @Override
-//    public void addInterceptors(InterceptorRegistry registry) {
-//        registry.addInterceptor( authenticationFilter() );
+//    protected void configure(HttpSecurity http) throws Exception {
+//        http
+//                .authorizeRequests()
+//                .antMatchers("/admin/**").hasRole("ADMIN")
+//                .and()
+//                .formLogin()
+//                .loginPage("/login")
+//                .permitAll();
 //    }
 //
 //}
-
