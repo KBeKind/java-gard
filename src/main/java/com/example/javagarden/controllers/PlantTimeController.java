@@ -2,10 +2,12 @@ package com.example.javagarden.controllers;
 
 import com.example.javagarden.data.PlantTimeRepository;
 //import com.example.javagarden.data.UserRepository;
+import com.example.javagarden.data.UserRepository;
 import com.example.javagarden.models.PlantTime;
 
 
-
+import com.example.javagarden.models.User;
+import com.example.javagarden.models.UserGardenData;
 import com.example.javagarden.service.DeleteService;
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -29,8 +31,13 @@ public class PlantTimeController {
     private PlantTimeRepository plantTimeRepository;
 
 
-//    @Autowired
-//    private UserRepository userRepository;
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private AuthenticationController authenticationController;
+
+
 
 
     @GetMapping
@@ -41,7 +48,8 @@ public class PlantTimeController {
     }
 
     @GetMapping("create")
-    public String renderCreatePlantTimeForm(Model model) {
+    public String renderCreatePlantTimeForm(Model model, HttpServletRequest request) {
+
 
 
         PlantTime plantTime = new PlantTime();
@@ -52,31 +60,29 @@ public class PlantTimeController {
     }
 
 
-
     @PostMapping("create")
     public String processCreatePlantTimeForm(@Valid @ModelAttribute PlantTime plantTime,
                                              Errors errors, Model model, HttpServletRequest request) {
-//
-//        HttpSession session = request.getSession();
-//
-//        Integer userId = (Integer) session.getAttribute("user");
-//
-//        Optional<UserEntity> result = userRepository.findById(userId);
-////        if (result.isEmpty()) {
-////            model.addAttribute("title", "Invalid Event ID: " + gardenId);
-////        } else {
-//        UserEntity userEntity = result.get();
-//
-//        UserGardenData userGardenData = userEntity.getUserGardenData();
+
+        HttpSession session = request.getSession();
+
+        Integer userId = authenticationController.getUserFromSession(session).getId();
+
+        Optional<User> userResult = userRepository.findById(userId);
+
+        //add error check!!!
+
+        User user = userResult.get();
+
+        UserGardenData userGardenData = user.getUserGardenData();
+
+        plantTime.setUserGardenData(userGardenData);
+
 
         if (errors.hasErrors()) {
             model.addAttribute("title", "Create Plant Time");
-//            model.addAttribute(new PlantTime());
             return "planttime/create";
         }
-
-
-//        plantTime.setUserGardenData(userGardenData);
 
         plantTimeRepository.save(plantTime);
         return "redirect:../planttime";

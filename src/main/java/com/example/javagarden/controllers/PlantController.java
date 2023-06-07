@@ -1,12 +1,12 @@
 package com.example.javagarden.controllers;
 
-import com.example.javagarden.data.PlantIconRepository;
-import com.example.javagarden.data.PlantRepository;
+import com.example.javagarden.data.*;
 
-import com.example.javagarden.data.PlantTimeRepository;
 import com.example.javagarden.models.Plant;
 
 import com.example.javagarden.models.PlantTime;
+import com.example.javagarden.models.User;
+import com.example.javagarden.models.UserGardenData;
 import com.example.javagarden.service.DeleteService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -36,17 +36,31 @@ public class PlantController {
     @Autowired
     private AuthenticationController authenticationController;
 
+    @Autowired
+    private UserRepository userRepository;
+
     @GetMapping
     public String displayPlants(@RequestParam(required = false) Integer plantTimeId, Model model, HttpServletRequest request) {
 
         HttpSession session = request.getSession();
         Integer testId = authenticationController.getUserFromSession(session).getId();
 
+        Optional< User > userResult = userRepository.findById(testId);
+
+        //add error check!!!
+
+        User user = userResult.get();
+
+
+        UserGardenData userGardenData = user.getUserGardenData();
+
+
+
 
         if (plantTimeId == null) {
             model.addAttribute("title", "All Plants");
-            model.addAttribute("plants", plantRepository.findAll());
-            model.addAttribute("testId", testId);
+            model.addAttribute("plants", userGardenData.getPlants());
+
         } else {
             Optional<PlantTime> result = plantTimeRepository.findById(plantTimeId);
             if (result.isEmpty()) {
@@ -81,13 +95,27 @@ public class PlantController {
 
     @PostMapping("create")
     public String processCreatePlantForm(@Valid @ModelAttribute Plant plant,
-                                                 Errors errors, Model model) {
+                                                 Errors errors, Model model, HttpServletRequest request) {
 
         if (errors.hasErrors()) {
             model.addAttribute("title", "Create Plant");
-            model.addAttribute(new Plant());
+//            model.addAttribute(new Plant());
             return "plant/create";
         }
+
+
+        HttpSession session = request.getSession();
+        Integer testId = authenticationController.getUserFromSession(session).getId();
+
+        Optional< User > userResult = userRepository.findById(testId);
+
+        //add error check!!!
+
+        User user = userResult.get();
+
+        UserGardenData userGardenData = user.getUserGardenData();
+
+        plant.setUserGardenData(userGardenData);
 
         plantRepository.save(plant);
 

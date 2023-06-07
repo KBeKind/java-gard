@@ -8,6 +8,7 @@ import com.example.javagarden.models.*;
 
 import com.example.javagarden.service.DeleteService;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -37,6 +38,16 @@ public class GardenController {
 
     @Autowired
     private PlantingRepository plantingRepository;
+
+
+    @Autowired
+    private UserRepository userRepository;
+
+
+    @Autowired
+    private AuthenticationController authenticationController;
+
+
 
     @GetMapping
     public String displayGarden(Model model) {
@@ -105,11 +116,25 @@ public class GardenController {
         }
 
 
+
         if (errors.hasErrors()) {
             model.addAttribute("title", "Create Garden");
             model.addAttribute(new Garden());
             return "garden/create";
         }
+
+        HttpSession session = request.getSession();
+        Integer testId = authenticationController.getUserFromSession(session).getId();
+
+        Optional< User > userResult = userRepository.findById(testId);
+
+        //add error check!!!
+
+        User user = userResult.get();
+
+        UserGardenData userGardenData = user.getUserGardenData();
+
+        garden.setUserGardenData(userGardenData);
 
         gardenRepository.save(garden);
         return "redirect:../garden";

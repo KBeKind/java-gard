@@ -3,13 +3,14 @@
 <head th:replace="~{fragments :: head}"></head>
 <body class="container">
 
-<header th:replace="fragments :: header"></header>
+<header th:replace="~{fragments :: header}"></header>
 
 <table class="table table-striped standard-text-color">
 
     <h2>Plant List</h2>
 
     <h1 th:text="${testId}"></h1>
+
 
     <tr th:each="plant : ${plants}">
         <td><a th:href="'/plant/detail?plantId=' + ${plant.id}" th:text="${plant.name}"></a></td>

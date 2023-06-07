@@ -27,6 +27,9 @@ public class Plant extends NamedEntity {
     @OneToMany(mappedBy = "plant")
     private final List<Planting> plantings = new ArrayList<>();
 
+    @ManyToOne
+//    @NotNull(message = "User Garden Data is is required")
+    private UserGardenData userGardenData;
 
 
 
@@ -56,6 +59,14 @@ public class Plant extends NamedEntity {
 
     public List<Planting> getPlantings() {
         return plantings;
+    }
+
+    public UserGardenData getUserGardenData() {
+        return userGardenData;
+    }
+
+    public void setUserGardenData(UserGardenData userGardenData) {
+        this.userGardenData = userGardenData;
     }
 }
 

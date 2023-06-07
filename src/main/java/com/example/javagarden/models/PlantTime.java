@@ -17,14 +17,14 @@ public class PlantTime extends NamedEntity{
     @OneToMany(mappedBy = "plantTime")
     private final List<Plant> plants = new ArrayList<>();
 
-//    @ManyToOne
+    @ManyToOne
 //    @NotNull(message = "User Garden Data is is required")
-//    private UserGardenData userGardenData;
+    private UserGardenData userGardenData;
 
 
-//    public PlantTime(UserGardenData userGardenData) {
-//        this.userGardenData = userGardenData;
-//    }
+    public PlantTime(UserGardenData userGardenData) {
+        this.userGardenData = userGardenData;
+    }
 
     public PlantTime() {}
 
@@ -34,14 +34,14 @@ public class PlantTime extends NamedEntity{
         return plants;
     }
 
-//
-//    public UserGardenData getUserGardenData() {
-//        return userGardenData;
-//    }
-//
-//    public void setUserGardenData(UserGardenData userGardenData) {
-//        this.userGardenData = userGardenData;
-//    }
+
+    public UserGardenData getUserGardenData() {
+        return userGardenData;
+    }
+
+    public void setUserGardenData(UserGardenData userGardenData) {
+        this.userGardenData = userGardenData;
+    }
 
 }
 

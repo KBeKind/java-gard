@@ -4,6 +4,7 @@ package com.example.javagarden.controllers;
 import com.example.javagarden.data.UserRepository;
 import com.example.javagarden.models.User;
 
+import com.example.javagarden.models.UserGardenData;
 import com.example.javagarden.models.dto.LoginFormDTO;
 import com.example.javagarden.models.dto.RegisterFormDTO;
 import jakarta.servlet.http.HttpServletRequest;
@@ -81,9 +82,9 @@ public class AuthenticationController {
 
         User newUser = new User(registerFormDTO.getUsername(), registerFormDTO.getPassword());
 
-//        UserGardenData userGardenData = new UserGardenData(newUser);
+        UserGardenData userGardenData = new UserGardenData(newUser);
 
-//        newUser.setUserGardenData(userGardenData);
+        newUser.setUserGardenData(userGardenData);
 
         userRepository.save(newUser);
         setUserInSession(request.getSession(), newUser);
