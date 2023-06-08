@@ -42,7 +42,7 @@ public class GardenController {
     @Autowired
     private UserGardenDataService userGardenDataService;
 
-    @GetMapping
+    @GetMapping()
     public String displayGarden(Model model, HttpServletRequest request) {
 
         UserGardenData userGardenData = userGardenDataService.getUserGardenData(request);

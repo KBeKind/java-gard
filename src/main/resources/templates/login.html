@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
 <head th:replace="~{fragments :: head}"></head>
-<body class="container">
+<body class="container padding-container">
 
-<header th:replace="~{fragments :: header}"></header>
+<h1>Welcome to Garden Party</h1>
 
+<h3><a href="/home">Home</a></h3>
+<hr>
 <form method="post">
     <div class="form-group">
         <label th:for="username">Username
@@ -23,6 +25,6 @@
 </form>
 
 <p>Don't have an account? <a href="/register">Register for one.</a></p>
-
+<th:block th:replace="~{fragments :: endingScripts}"></th:block>
 </body>
 </html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="~{fragments :: head}"></head>
+<body class="container">
+
+<div class="padding-container">
+
+<header th:replace="~{fragments :: header}"></header>
+<div class="padding-container">
+
+    <h1 th:text="${'Welcome ' + username}"></h1>
+
+    <h4>This is the place to organize and plan your garden!</h4>
+    <h4>You can:</h4>
+    <ul>
+        <li>
+            <a class="nav-link" href="/garden/start">Create a Garden</a>
+        </li>
+        <li>
+            <a class="nav-link" href="/plant/create">Create Plants for your Garden</a>
+        </li>
+        <li>
+            <a class="nav-link" href="/planttime/create">Set up Timings for Harvest and Replanting</a>
+        </li>
+    </ul>
+</div>
+</div>
+
+<th:block th:replace="~{fragments :: endingScripts}"></th:block>
+
+</body>
+</html>

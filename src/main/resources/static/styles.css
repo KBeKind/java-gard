@@ -7,7 +7,6 @@ body {
 }
 
 
-
 header {
 
 }
@@ -26,6 +25,25 @@ a:visited {
 
 a:hover {
   color: hsla(90, 100%, 56%, 1);
+}
+
+
+.padding-container {
+    padding: 2rem;
+}
+
+
+.navbar {
+  background-color: hsla(214, 31%, 11%, 1);
+}
+
+.dropdown-menu {
+  background-color: hsla(214, 31%, 11%, 1);
+}
+
+.dropdown-menu a:hover {
+  color: hsla(214, 31%, 26%, 1);
+  background-color: hsla(83, 90%, 80%, 1);
 }
 
 
