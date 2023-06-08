@@ -2,9 +2,12 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
 <head th:replace="~{fragments :: head}"></head>
 <body class="container">
-
+<div class="padding-container">
 <header th:replace="fragments :: header"></header>
+    <div class="padding-container">
 
+        <div th:replace="~{fragments :: adminMenu}"></div>
+        <h1>Create Plant Icon</h1>
 <form method="post">
     <div class="form-group">
         <label>Source File Name
@@ -21,6 +24,10 @@
 
     <input type="submit" value="Create" class="btn btn-primary">
 </form>
+    </div>
+</div>
+
+
 <th:block th:replace="~{fragments :: endingScripts}"></th:block>
 </body>
 </html>

@@ -2,20 +2,22 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
 <head th:replace="~{fragments :: head}"></head>
 <body class="container">
-
+<div class="padding-container">
 <header th:replace="~{fragments :: header}"></header>
+    <div class="padding-container">
 
 <div th:replace="~{fragments :: adminMenu}"></div>
-
+        <h1>Plant Icon List</h1>
 <table class="table table-striped">
-
-        <h2>Plant Icon List</h2>
 
     <tr th:each="plantIcon : ${plantIcons}">
         <td><a th:text="${plantIcon.id" th:href="'/admin/plantIcon?plantIconId=' + ${plantIcon.id}"></a></td>
     </tr>
 
 </table>
+    </div>
+</div>
+
 <th:block th:replace="~{fragments :: endingScripts}"></th:block>
 </body>
 </html>

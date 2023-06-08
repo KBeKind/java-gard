@@ -2,9 +2,9 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
 <head th:replace="~{fragments :: head}"></head>
 <body class="container">
-
+<div class="padding-container">
 <header th:replace="~{fragments :: header}"></header>
-
+    <div class="padding-container">
 <h3>Admin Menu </h3>
 <div th:replace="~{fragments :: adminMenu}"></div>
 
@@ -12,6 +12,9 @@
 
 
 </table>
+
+    </div>
+</div>
 <th:block th:replace="~{fragments :: endingScripts}"></th:block>
 </body>
 </html>

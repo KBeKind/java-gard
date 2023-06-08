@@ -2,9 +2,10 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
 <head th:replace="~{fragments :: head}"></head>
 <body class="container">
-
+<div class="padding-container">
 <header th:replace="~{fragments :: header}"></header>
-
+    <div class="padding-container">
+        <h1>Delete a Plant</h1>
 <form method="post">
 
     <th:block th:each="plant : ${plants}">
@@ -20,7 +21,7 @@
     <input type="submit" value="Delete" class="btn btn-danger">
 
 </form>
-
-
+</div>
+    </div>
 <th:block th:replace="~{fragments :: endingScripts}"></th:block>
 </body>

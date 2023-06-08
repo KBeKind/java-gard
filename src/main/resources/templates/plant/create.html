@@ -2,9 +2,10 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
 <head th:replace="~{fragments :: head}"></head>
 <body class="container">
-
+<div class="padding-container">
 <header th:replace="~{fragments :: header}"></header>
-
+    <div class="padding-container">
+        <h1>Create a Plant</h1>
 <form method="post">
     <div class="form-group">
         <label>Name
@@ -46,7 +47,8 @@
 </form>
 
 
-
+</div>
+</div>
 
 </body>
 

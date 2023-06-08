@@ -2,9 +2,10 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
 <head th:replace="~{fragments :: head}"></head>
 <body class="container">
-
+<div class="padding-container">
 <header th:replace="~{fragments :: header}"></header>
-
+    <div class="padding-container">
+        <h1>Plant Details</h1>
 <table class="table table-striped standard-text-color" th:if="${plant}">
     <tr>
         <th>ID</th>
@@ -21,7 +22,8 @@
 </table>
 
 <h3 th:unless="${plant}" th:text="${explanation}"></h3>
-
+    </div>
+</div>
 
 </body>
 <th:block th:replace="~{fragments :: endingScripts}"></th:block>

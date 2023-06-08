@@ -2,9 +2,9 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
 <head th:replace="~{fragments :: head}"></head>
 <body class="container">
-
+<div class="padding-container">
 <header th:replace="~{fragments :: header}"></header>
-
+    <div class="padding-container">
 <div class="garden-detail-garden-wrapper">
         <h2  th:text="${garden.name + ' Beds'}"></h2>
 
@@ -23,7 +23,6 @@
                                 <th:block th:each="plot: ${bed.plots}">
                                 <div class="garden-detail-td">
                                     <a href="/garden">Plot Details</a>
-                                    <p th:text="${plot.id}"></p>
 
                                     <div th:if="${plot.planting}">
 
@@ -66,6 +65,8 @@
             </div>
         </th:block>
 
+        </div>
+    </div>
 </div>
 <th:block th:replace="~{fragments :: endingScripts}"></th:block>
 </body>

@@ -2,9 +2,9 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
 <head th:insert="~{fragments :: head}"></head>
 <body class="container">
-
+<div class="padding-container">
 <header th:insert="~{fragments :: header}"></header>
-
+    <div class="padding-container">
 <h1 th:text="${garden.name}"></h1>
 <form method="post">
 
@@ -26,6 +26,9 @@
             <input type="submit" value="Create" class="btn btn-primary">
 
         </form>
+
+    </div>
+</div>
 <th:block th:replace="~{fragments :: endingScripts}"></th:block>
 </body>
 </html>

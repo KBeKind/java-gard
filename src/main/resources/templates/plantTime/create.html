@@ -2,9 +2,10 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
 <head th:replace="~{fragments :: head}"></head>
 <body class="container">
-
+<div class="padding-container">
 <header th:replace="~{fragments :: header}"></header>
-
+    <div class="padding-container">
+        <h1>Create Plant Timer</h1>
 <form method="post">
     <div class="form-group">
         <label>Name
@@ -14,7 +15,8 @@
     </div>
     <input type="submit" value="Create" class="btn btn-primary">
 </form>
-
+    </div>
+</div>
 </body>
 <th:block th:replace="~{fragments :: endingScripts}"></th:block>
 </html>
