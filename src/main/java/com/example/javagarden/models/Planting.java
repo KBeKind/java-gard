@@ -8,6 +8,8 @@ import jakarta.persistence.OneToOne;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 
 
 @Entity
@@ -23,10 +25,26 @@ public class Planting extends AbstractEntity{
     @ManyToOne
     private Plant plant;
 
+    private LocalDate plantingDate;
 
-    public Planting(Plot plot, Plant plant) {
+    private LocalDate harvestStartDate;
+
+    private LocalDate removeDate;
+
+    private long daysUntilHarvestStartDate;
+
+    private long daysUntilRemoveStartDate;
+
+//    LocalDate dateOfJune15 = LocalDate.of(2023, 6, 15);
+//    Period period = Period.between(today, dateOfJune15);
+//
+
+
+    public Planting(Plot plot, Plant plant, LocalDate plantingDate) {
         this.plot = plot;
         this.plant = plant;
+        this.plantingDate = plantingDate;
+
 
     }
 
@@ -49,5 +67,54 @@ public class Planting extends AbstractEntity{
 
     public void setPlant(Plant plant) {
         this.plant = plant;
+    }
+
+    public LocalDate getPlantingDate() {
+        return plantingDate;
+    }
+
+    public void setPlantingDate(LocalDate plantingDate) {
+        this.plantingDate = plantingDate;
+    }
+
+
+    public LocalDate getHarvestStartDate() {
+        return harvestStartDate;
+    }
+
+    public void setHarvestStartDate(LocalDate harvestStartDate) {
+        this.harvestStartDate = harvestStartDate;
+    }
+
+    public LocalDate getRemoveDate() {
+        return removeDate;
+    }
+
+    public void setRemoveDate(LocalDate removeDate) {
+        this.removeDate = removeDate;
+    }
+
+
+    public long getDaysUntilHarvestStartDate() {
+        return daysUntilHarvestStartDate;
+    }
+
+    public void setDaysUntilHarvestStartDate(long daysUntilHarvestStartDate) {
+        this.daysUntilHarvestStartDate = daysUntilHarvestStartDate;
+    }
+
+    public long getDaysUntilRemoveStartDate() {
+        return daysUntilRemoveStartDate;
+    }
+
+    public void setDaysUntilRemoveStartDate(long daysUntilRemoveStartDate) {
+        this.daysUntilRemoveStartDate = daysUntilRemoveStartDate;
+    }
+
+    public void updateDaysUntilHarvestStartDate() {
+        this.daysUntilHarvestStartDate = ChronoUnit.DAYS.between(LocalDate.now(), getHarvestStartDate());
+    }
+    public void updateDaysUntilRemoveStartDate() {
+        this.daysUntilRemoveStartDate = ChronoUnit.DAYS.between(LocalDate.now(), getRemoveDate());
     }
 }

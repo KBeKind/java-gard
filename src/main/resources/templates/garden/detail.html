@@ -30,8 +30,18 @@
 
                                         <img th:src="'/images/' + ${plot.planting.plant.plantIcon.src} + '.png'" alt="${plot.planting.plant.plantIcon.description}" width="60" />
 
-                                        <p>Time Left:</p>
-
+                                        <span>Plant Date:</span>
+                                        <p th:text="${plot.planting.plantingDate}"></p>
+                                        <hr>
+                                        <th:block th:if="${plot.planting.harvestStartDate}">
+                                        <span>Days Until Harvest</span>
+                                        <span th:text="${plot.planting.daysUntilHarvestStartDate}"></span>
+                                            <hr>
+                                        </th:block>
+                                        <th:block th:if="${plot.planting.removeDate}">
+                                        <span>Days Left Until Removal</span>
+                                        <span th:text="${plot.planting.daysUntilRemoveStartDate}"></span>
+                                        </th:block>
                                         <form method="post">
                                             <input hidden name="plotId" th:value="${plot.id}"/>
                                         <button class="btn btn-secondary">Remove</button>

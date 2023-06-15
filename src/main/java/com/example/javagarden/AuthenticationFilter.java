@@ -50,7 +50,7 @@ public class AuthenticationFilter implements HandlerInterceptor {
         }
 
         // The user is NOT logged in
-        response.sendRedirect("/login");
+        response.sendRedirect("/home");
         return false;
     }
 

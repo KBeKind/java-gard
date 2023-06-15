@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
-<head th:replace="fragments :: head"></head>
-<body>
+<head th:replace="~{fragments :: head}"></head>
+<body class="container padding-container">
 
 <header th:replace="fragments :: header"></header>
-
+<div class="padding-container">
 <p>OOPS THAT ISN'T AVAILABLE TO YOU</p>
+
+</div>
 <th:block th:replace="~{fragments :: endingScripts}"></th:block>
 </body>
 </html>

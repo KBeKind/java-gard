@@ -22,6 +22,12 @@ public class PlantTime extends NamedEntity{
     private UserGardenData userGardenData;
 
 
+    private int daysUntilHarvestTotal;
+
+    private int daysUntilPlantRemoveTotal;
+
+
+
     public PlantTime(UserGardenData userGardenData) {
         this.userGardenData = userGardenData;
     }
@@ -43,5 +49,20 @@ public class PlantTime extends NamedEntity{
         this.userGardenData = userGardenData;
     }
 
+    public int getDaysUntilHarvestTotal() {
+        return daysUntilHarvestTotal;
+    }
+
+    public void setDaysUntilHarvestTotal(int daysUntilHarvestTotal) {
+        this.daysUntilHarvestTotal = daysUntilHarvestTotal;
+    }
+
+    public int getDaysUntilPlantRemoveTotal() {
+        return daysUntilPlantRemoveTotal;
+    }
+
+    public void setDaysUntilPlantRemoveTotal(int daysUntilPlantRemoveTotal) {
+        this.daysUntilPlantRemoveTotal = daysUntilPlantRemoveTotal;
+    }
 }
 
