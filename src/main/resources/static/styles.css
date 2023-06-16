@@ -151,6 +151,7 @@ a:hover {
 .iconSelectionIcon {
  background: hsla(83, 90%, 80%, 1);
   border: 1px solid black;
+  border-radius: 1rem;
   padding: 10px;
   margin: 10px;
 

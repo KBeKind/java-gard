@@ -8,7 +8,7 @@
         <h1>Create a Plant</h1>
 <form method="post">
     <div class="form-group">
-        <label>Name
+        <label>Plant Name
             <input th:field="${plant.name}" class="form-control">
         </label>
         <span th:errors="${plant.name}" class="error"></span>
@@ -16,7 +16,7 @@
 
 
     <div class="form-group">
-        <label>Plant Icon
+        <label>Select a Plant Icon for your Plant type:
             <div class="iconSelectionMenu">
                 <th:block th:each="icon : ${plantIcons}">
                     <div th:class="iconSelectionIcon">
