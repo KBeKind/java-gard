@@ -47,10 +47,16 @@ a:hover {
 }
 
 
+.info-message {
+    padding: 1rem;
+    background: hsla(214, 31%, 11%, 1);
+    border-radius: 1rem;
+}
+
+
 .garden-detail-garden-wrapper {
     width: min(1400px, 100% - 3rem);
     margin-inline: auto;
-
 
 }
 
@@ -97,7 +103,7 @@ a:hover {
 
 .garden-detail-td {
     margin: 0.5rem;
-    padding: 1rem;
+    padding: 0.5rem;
     border-radius: 1rem;
     background: hsla(83, 90%, 80%, 0.5);
 }
@@ -158,5 +164,31 @@ a:hover {
 }
 
 .active {
-  background-color: green;
+  background-color: hsla(90, 100%, 56%, 1);;
+}
+
+.input-hidden {
+  position: absolute;
+  left: -9999px;
+}
+
+input[type=radio]:checked + label>img {
+  border: 1px solid #fff;
+  box-shadow: 0 0 3px 3px #090;
+}
+
+
+/* Stuff after this is only to make things more pretty*/
+input[type=radio] + label>img {
+  border: 1px dashed #444;
+  width: 60px;
+  height: 60px;
+  transition: 500ms all;
+}
+
+input[type=radio]:checked + label>img {
+
+  transform:
+    rotateZ(-10deg)
+    rotateX(10deg);
 }
