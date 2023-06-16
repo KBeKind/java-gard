@@ -100,7 +100,7 @@ public class AuthenticationController {
         userRepository.save(newUser);
         setUserInSession(request.getSession(), newUser);
 
-        return "redirect:";
+        return "redirect:/userhome";
     }
 
 
