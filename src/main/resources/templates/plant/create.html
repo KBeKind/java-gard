@@ -5,10 +5,10 @@
 <div class="padding-container">
 <header th:replace="~{fragments :: header}"></header>
     <div class="padding-container">
-        <h1>Create a Plant</h1>
+        <h1>Create a Plant for Your Garden</h1>
 <form method="post">
     <div class="form-group">
-        <label>Name
+        <label>Plant Name
             <input th:field="${plant.name}" class="form-control">
         </label>
         <span th:errors="${plant.name}" class="error"></span>
@@ -16,13 +16,17 @@
 
 
     <div class="form-group">
-        <label>Plant Icon
+        <label>Select a Plant Icon for your Plant type.
             <div class="iconSelectionMenu">
+
+
                 <th:block th:each="icon : ${plantIcons}">
-                    <div th:class="iconSelectionIcon">
-                     <input type="radio" th:field="${plant.plantIcon}" th:value="${icon.id}"/>
-                    <img th:src="'/images/' + ${icon.src} + '.png'" alt="${icon.description}" width="60" />
-                    </div>
+<!--                    <div th:class="iconSelectionIcon">-->
+                     <input type="radio" th:field="${plant.plantIcon}" th:value="${icon.id}" class="input-hidden" th:id="${icon.description}"/>
+                        <label th:for="${icon.description}">
+                            <img th:src="'/images/' + ${icon.src} + '.png'" th:alt="${icon.description}" width="60" />
+                        </label>
+<!--                    </div>-->
                 </th:block>
             </div>
 
@@ -42,6 +46,12 @@
             <p class="error" th:errors="${plant.plantTime}"></p>
         </label>
     </div>
+
+
+
+
+
+
 
     <input type="submit" value="Create" class="btn btn-primary">
 </form>
