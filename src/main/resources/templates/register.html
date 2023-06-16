@@ -1,11 +1,14 @@
 
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
-<head th:replace="~{fragments :: head}"></head>
+<head th:replace="~{fragments :: welcomeHead}"></head>
 <body class="container">
+<div class="padding-container">
 
 <header th:replace="~{fragments :: header}"></header>
-
+    <div class="padding-container">
+        <h3>Register to use Garden Party</h3>
+        <hr/>
 <form method="post">
     <div class="form-group">
         <label>Username
@@ -27,6 +30,8 @@
 
     <input type="submit" class="btn btn-primary" value="Register" />
 </form>
+    </div>
+</div>
 <th:block th:replace="~{fragments :: endingScripts}"></th:block>
 </body>
 </html>
