@@ -13,6 +13,9 @@ repositories {
 }
 
 dependencies {
+
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+
 	implementation 'org.springframework.security:spring-security-crypto'
 	implementation 'org.springframework.security:spring-security-core'
 	implementation 'org.springframework.security:spring-security-web'

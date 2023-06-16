@@ -17,6 +17,9 @@ import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.Arrays;
 import java.util.Optional;
 
@@ -147,6 +150,20 @@ public class GardenController {
             model.addAttribute("title", "Invalid Event ID: " + gardenId);
         } else {
             Garden garden = result.get();
+
+            for (Bed bed: garden.getBeds()) {
+                for (Plot plot : bed.getPlots()) {
+                    if (plot.hasPlanting()) {
+                        if (plot.getPlanting().getHarvestStartDate() != null) {
+                            plot.getPlanting().updateDaysUntilHarvestStartDate();
+                        }
+                        if (plot.getPlanting().getRemoveDate() != null) {
+                            plot.getPlanting().updateDaysUntilRemoveStartDate();
+                        }
+                    }
+
+                }
+            }
             model.addAttribute("title", garden.getName() + " Details");
             model.addAttribute("garden", garden);
             model.addAttribute("plants", plantRepository.findAll());
@@ -167,6 +184,8 @@ public class GardenController {
     @PostMapping("detail")
     public String processGardenDetails(@Valid @ModelAttribute PlantingDTO plantingDTO, @RequestParam(required = false) Integer plantId, @RequestParam(required = false) Integer plotId, Model model) {
 
+
+
         Optional<Plot> result = plotRepository.findById(plotId);
         if (result.isEmpty()) {
             model.addAttribute("title", "Invalid Category ID: ");
@@ -186,6 +205,7 @@ public class GardenController {
 
             } else {
 
+
                 Optional<Plant> plantResult = plantRepository.findById(plantId);
                 if (plantResult.isEmpty()) {
 //                    model.addAttribute("title", "Invalid Category ID: ");
@@ -194,9 +214,19 @@ public class GardenController {
 
                 } else {
 
+                    // DATE STUFF FOR CALCULATION OF TIME LEFT
+                    LocalDateTime localDateTime = LocalDateTime.now();
+                    LocalDate localDate = localDateTime.toLocalDate();
+
                     Plant plant = plantResult.get();
 
-                    Planting planting = new Planting(plot, plant);
+                    Planting planting = new Planting(plot, plant, localDate);
+                    LocalDate harvestStartDate = localDate.plusDays(plant.getPlantTime().getDaysUntilHarvestTotal());
+                    LocalDate removeStartDate = localDate.plusDays(plant.getPlantTime().getDaysUntilPlantRemoveTotal());
+                    planting.setHarvestStartDate(harvestStartDate);
+                    planting.setRemoveDate(removeStartDate);
+                    planting.setDaysUntilHarvestStartDate(ChronoUnit.DAYS.between(planting.getPlantingDate(), planting.getHarvestStartDate()));
+                    planting.setDaysUntilRemoveStartDate(ChronoUnit.DAYS.between(planting.getPlantingDate(), planting.getRemoveDate()));
                     plot.setPlanting(planting);
                     plantingRepository.save(planting);
                     return "redirect:/garden/detail?gardenId=" + plantingDTO.getGardenId();

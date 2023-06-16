@@ -7,6 +7,7 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+
 @Configuration
 public class WebApplicationConfig implements WebMvcConfigurer {
 
@@ -28,5 +29,12 @@ public class WebApplicationConfig implements WebMvcConfigurer {
         registry.addInterceptor( authorizationFilter() );
     }
 
+
+    // Register the static resources location with Spring Boot
+//    // below is new stuff trying to get css past filter
+//    @Override
+//    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+//        registry.addResourceHandler("/static/**").addResourceLocations("/static/");
+//    }
 
 }

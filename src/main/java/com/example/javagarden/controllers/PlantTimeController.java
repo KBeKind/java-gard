@@ -61,6 +61,7 @@ public class PlantTimeController {
 
         UserGardenData userGardenData = userGardenDataService.getUserGardenData(request);
 
+
         plantTime.setUserGardenData(userGardenData);
 
         if (errors.hasErrors()) {

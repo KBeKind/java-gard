@@ -1,7 +1,6 @@
 package com.example.javagarden.service;
 
 import com.example.javagarden.controllers.AuthenticationController;
-import com.example.javagarden.data.PlantIconRepository;
 import com.example.javagarden.data.UserRepository;
 import com.example.javagarden.models.User;
 import com.example.javagarden.models.UserGardenData;
