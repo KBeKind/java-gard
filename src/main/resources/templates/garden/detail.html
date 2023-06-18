@@ -23,7 +23,7 @@
                             <div class ="garden-detail-table" th:style="'grid-template-columns: repeat('+ ${bed.bedWidthPlots} +', 1fr);'">
 
                                 <th:block th:each="plot: ${bed.plots}">
-                                <div class="garden-detail-td">
+                                <div class="garden-detail-td" th:id="${plot.id}">
                                     <div th:if="${plot.planting}">
                                         <div class="centered">
                                         <h5><a href="/garden" class="link-shadow">Plot Details</a></h5>
@@ -86,34 +86,6 @@
     </div>
 </div>
 
-
-<script>
-function restoreScrollPosition() {
-  var scrollPosition = sessionStorage.getItem("scrollPosition");
-  if (scrollPosition !== null) {
-    window.scrollTo(0, scrollPosition);
-  }
-}
-</script>
-<script>
-function getScrollPosition() {
-  return window.pageYOffset;
-}
-</script>
-
-
-<script>
-function saveScrollPosition() {
-  var scrollPosition = document.getElementById("scrollPosition").value;
-  sessionStorage.setItem("scrollPosition", scrollPosition);
-}
-</script>
-
-<script>
-$(document).ready(function() {
-  saveScrollPosition();
-});
-</script>
 
 
 <th:block th:replace="~{fragments :: endingScripts}"></th:block>
