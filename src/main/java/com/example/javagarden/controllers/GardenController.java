@@ -203,7 +203,7 @@ public class GardenController {
                 Planting planting = plot.getPlanting();
                 plot.removePlanting(planting);
                 plantingRepository.delete(planting);
-                return "redirect:/garden/detail?gardenId=" + plantingDTO.getGardenId();
+                return "redirect:/garden/detail?gardenId=" + plantingDTO.getGardenId() + "#" + plot.getId();
 
             } else {
 
@@ -234,7 +234,8 @@ public class GardenController {
 
 
 
-                    return "redirect:/garden/detail?gardenId=" + plantingDTO.getGardenId();
+                    return "redirect:/garden/detail?gardenId=" + plantingDTO.getGardenId() + "#" + plot.getId();
+
 
                 }
 
