@@ -11,34 +11,40 @@
         <th:block th:each="bed : ${garden.beds}">
 
             <div class="garden-detail-table-wrapper">
+                <h3 class="garden-detail-caption" th:text="${bed.name}"></h3>
+
                 <div class="garden-detail-table-border">
+
                     <div class="garden-detail-table-inner-border">
 
-                        <h3 class="garden-detail-caption" th:text="${bed.name}"></h3>
 
-                        <div class="garden-detail-table-inner-border-2">
+<!--                        <div class="garden-detail-table-inner-border-2">-->
 
                             <div class ="garden-detail-table" th:style="'grid-template-columns: repeat('+ ${bed.bedWidthPlots} +', 1fr);'">
 
                                 <th:block th:each="plot: ${bed.plots}">
                                 <div class="garden-detail-td">
-                                    <a href="/garden">Plot Details</a>
-
                                     <div th:if="${plot.planting}">
+                                        <div class="centered">
+                                        <h5><a href="/garden" class="link-shadow">Plot Details</a></h5>
 
-                                        <p th:text="${plot.planting.plant.name}"></p>
+
 
                                         <img th:src="'/images/' + ${plot.planting.plant.plantIcon.src} + '.png'" alt="${plot.planting.plant.plantIcon.description}" width="60" />
+                                            <p th:text="${plot.planting.plant.name}"></p>
+                                        </div>
+                                            <hr/>
 
                                         <span>Plant Date:</span>
+
                                         <p th:text="${plot.planting.plantingDate}"></p>
                                         <hr>
-                                        <th:block th:if="${plot.planting.harvestStartDate}">
+                                        <th:block th:if="${plot.planting.daysUntilHarvestStartDate}">
                                         <span>Days Until Harvest</span>
                                         <span th:text="${plot.planting.daysUntilHarvestStartDate}"></span>
                                             <hr>
                                         </th:block>
-                                        <th:block th:if="${plot.planting.removeDate}">
+                                        <th:block th:if="${plot.planting.daysUntilRemoveStartDate}">
                                         <span>Days Left Until Removal</span>
                                         <span th:text="${plot.planting.daysUntilRemoveStartDate}"></span>
                                         </th:block>
@@ -50,7 +56,7 @@
                                     </div>
 
                                     <form method="post" th:unless="${plot.planting}">
-
+                                    <h5 class="link-shadow standard-text-color">Plant Here</h5>
                                         <input hidden name="plotId" th:value="${plot.id}"/>
 
 
@@ -62,6 +68,7 @@
                                             ></option>
                                        </select>
 
+                                        <input type="hidden" id="scrollPosition" value="@{getScrollPosition()}" />
 
                                         <button class="btn btn-primary" th:text="Plant"></button>
                                     </form>
@@ -71,13 +78,44 @@
                     </div>
                         </div>
                     </div>
-                </div>
+<!--                </div>-->
             </div>
         </th:block>
 
         </div>
     </div>
 </div>
+
+
+<script>
+function restoreScrollPosition() {
+  var scrollPosition = sessionStorage.getItem("scrollPosition");
+  if (scrollPosition !== null) {
+    window.scrollTo(0, scrollPosition);
+  }
+}
+</script>
+<script>
+function getScrollPosition() {
+  return window.pageYOffset;
+}
+</script>
+
+
+<script>
+function saveScrollPosition() {
+  var scrollPosition = document.getElementById("scrollPosition").value;
+  sessionStorage.setItem("scrollPosition", scrollPosition);
+}
+</script>
+
+<script>
+$(document).ready(function() {
+  saveScrollPosition();
+});
+</script>
+
+
 <th:block th:replace="~{fragments :: endingScripts}"></th:block>
 </body>
 </html>

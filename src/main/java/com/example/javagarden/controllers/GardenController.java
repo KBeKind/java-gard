@@ -9,7 +9,7 @@ import com.example.javagarden.models.*;
 import com.example.javagarden.service.DeleteService;
 import com.example.javagarden.service.UserGardenDataService;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
+
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,6 +22,7 @@ import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.Arrays;
 import java.util.Optional;
+
 
 @Controller
 @RequestMapping("garden")
@@ -186,6 +187,7 @@ public class GardenController {
 
 
 
+
         Optional<Plot> result = plotRepository.findById(plotId);
         if (result.isEmpty()) {
             model.addAttribute("title", "Invalid Category ID: ");
@@ -229,6 +231,9 @@ public class GardenController {
                     planting.setDaysUntilRemoveStartDate(ChronoUnit.DAYS.between(planting.getPlantingDate(), planting.getRemoveDate()));
                     plot.setPlanting(planting);
                     plantingRepository.save(planting);
+
+
+
                     return "redirect:/garden/detail?gardenId=" + plantingDTO.getGardenId();
 
                 }

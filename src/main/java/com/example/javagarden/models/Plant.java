@@ -1,10 +1,8 @@
 package com.example.javagarden.models;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 
-import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.NotNull;
 
 import java.util.ArrayList;
@@ -14,8 +12,7 @@ import java.util.List;
 @Entity
 public class Plant extends NamedEntity {
 
-    @ManyToOne
-    @NotNull(message = "Plant Time is required")
+    @OneToOne(cascade = CascadeType.ALL)
     private PlantTime plantTime;
 
 

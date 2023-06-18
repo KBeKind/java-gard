@@ -2,9 +2,8 @@ package com.example.javagarden.controllers;
 
 import com.example.javagarden.data.*;
 
-import com.example.javagarden.models.Plant;
+import com.example.javagarden.models.*;
 
-import com.example.javagarden.models.UserGardenData;
 import com.example.javagarden.service.DeleteService;
 import com.example.javagarden.service.UserGardenDataService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -59,33 +58,39 @@ public class PlantController {
 
 
     @GetMapping("create")
-    public String displayCreatePlantForm(Model model, HttpServletRequest request) {
+    public String displayCreatePlantForm(Model model) {
 
-        UserGardenData userGardenData = userGardenDataService.getUserGardenData(request);
+//        UserGardenData userGardenData = userGardenDataService.getUserGardenData(request);
 
         model.addAttribute("title", "Create Plant");
-        model.addAttribute(new Plant());
-        model.addAttribute("plantTimes", userGardenData.getPlantTimes());
+        model.addAttribute("plant", new Plant());
+//        model.addAttribute("plantTimes", userGardenData.getPlantTimes());
         model.addAttribute("plantIcons", plantIconRepository.findAll());
+        model.addAttribute("newPlantTime", new PlantTime());
 
         return "plant/create";
     }
 
 
     @PostMapping("create")
-    public String processCreatePlantForm(@Valid @ModelAttribute Plant plant,
+    public String processCreatePlantForm(@Valid @ModelAttribute Plant plant, @Valid @ModelAttribute PlantTime plantTime,
                                                  Errors errors, Model model, HttpServletRequest request) {
 
         UserGardenData userGardenData = userGardenDataService.getUserGardenData(request);
 
         if (errors.hasErrors()) {
             model.addAttribute("title", "Create Plant");
-            model.addAttribute("plantTimes", userGardenData.getPlantTimes());
+            model.addAttribute("newPlantTime", new PlantTime());
             model.addAttribute("plantIcons", plantIconRepository.findAll());
             return "plant/create";
         }
 
+        plantTime.setUserGardenData(userGardenData);
+        plantTimeRepository.save(plantTime);
+
+
         plant.setUserGardenData(userGardenData);
+        plant.setPlantTime(plantTime);
         plantRepository.save(plant);
         return "redirect:../plant";
     }
@@ -112,6 +117,22 @@ public class PlantController {
 
         UserGardenData userGardenData = userGardenDataService.getUserGardenData(request);
 
+        for (Garden garden : userGardenData.getGardens()) {
+
+            for (Bed bed : garden.getBeds()) {
+                for (Plot plot : bed.getPlots()) {
+                    if (plot.hasPlanting()) {
+                        if (plot.getPlanting().getHarvestStartDate() != null) {
+                            plot.getPlanting().updateDaysUntilHarvestStartDate();
+                        }
+                        if (plot.getPlanting().getRemoveDate() != null) {
+                            plot.getPlanting().updateDaysUntilRemoveStartDate();
+                        }
+                    }
+
+                }
+            }
+        }
         List<Plant> plants = userGardenData.getPlants();
 
         for (Plant plant : plants) {

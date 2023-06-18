@@ -4,6 +4,8 @@ import jakarta.persistence.Entity;
 
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 
 import java.util.ArrayList;
@@ -11,11 +13,13 @@ import java.util.List;
 
 
 @Entity
-public class PlantTime extends NamedEntity{
+public class PlantTime extends AbstractEntity{
 
 
-    @OneToMany(mappedBy = "plantTime")
-    private final List<Plant> plants = new ArrayList<>();
+
+
+    @OneToOne
+    private Plant plant;
 
     @ManyToOne
 //    @NotNull(message = "User Garden Data is is required")
@@ -35,11 +39,13 @@ public class PlantTime extends NamedEntity{
     public PlantTime() {}
 
 
-
-    public List<Plant> getPlants() {
-        return plants;
+    public Plant getPlant() {
+        return plant;
     }
 
+    public void setPlant(Plant plant) {
+        this.plant = plant;
+    }
 
     public UserGardenData getUserGardenData() {
         return userGardenData;

@@ -6,20 +6,31 @@
 <header th:replace="~{fragments :: header}"></header>
     <div class="padding-container">
         <h1>Plant Details</h1>
-<table class="table table-striped standard-text-color" th:if="${plant}">
-    <tr>
-        <th>ID</th>
-        <td th:text="${plant.id}"></td>
-    </tr>
-    <tr>
-        <th>Icon</th>
-        <td>
-            <img th:src="'/images/' + ${plant.plantIcon.src} + '.png'" alt="${plant.plantIcon.description}" width="60" />
+        <hr/>
+        <h5>Plant Name: <span th:text="${plant.name}"></span></h5>
 
-        </td>
-    </tr>
 
-</table>
+        <h5>Plant Icon: <img th:src="'/images/' + ${plant.plantIcon.src} + '.png'" alt="${plant.plantIcon.description}" width="60" /></h5>
+
+
+        <h5>Current Plantings:</h5>
+        <ul>
+            <th:block th:each="planting : ${plant.plantings}">
+                <div class="info-message">
+                    <span>Garden Name:</span><p th:text="${planting.plot.bed.garden.name}"></p>
+                    <span>Bed Name:</span><p th:text="${planting.plot.bed.name}"></p>
+                    <span>Planting Date:</span><p th:text="${planting.plantingDate}"></p>
+                    <th:block th:if="${planting.daysUntilHarvestStartDate}">
+                    <span>Days Until Harvest Starts:</span><p th:text="${planting.daysUntilHarvestStartDate}"></p>
+                    </th:block>
+                    <th:block th:if="${planting.daysUntilRemoveStartDate}">
+                    <span>Days Until Removal Date:</span><p th:text="${planting.daysUntilRemoveStartDate}"></p>
+                    </th:block>
+                </div>
+                <hr/>
+            </th:block>
+        </ul>
+
 
 <h3 th:unless="${plant}" th:text="${explanation}"></h3>
     </div>
