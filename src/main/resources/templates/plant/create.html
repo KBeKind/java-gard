@@ -35,28 +35,26 @@
     </div>
 
     <div class="form-group">
-        <label>Plant Time
-            <select th:field="${plant.plantTime}">
-
-                <option th:each="plantTime : ${plantTimes}"
-                        th:value="${plantTime.id}"
-                        th:text="${plantTime.name}"
-                ></option>
-            </select>
-            <p class="error" th:errors="${plant.plantTime}"></p>
-        </label>
-    </div>
 
 
+            <h5>Plant Timer:</h5>
+        <p>(optional)</p>
 
-
-
-
+            <label>Days Until You Can Start Harvesting:
+                <input type="number" th:field="${newPlantTime.daysUntilHarvestTotal}" class="form-control">
+            </label>
+<!--            <span th:errors="${plantTime.daysUntilHarvestTotal}" class="error"></span>-->
+<br/>
+        <br/>
+            <label>Days Until Plant Removal:
+                <input type="number" th:field="${newPlantTime.daysUntilPlantRemoveTotal}" class="form-control">
+            </label>
+<!--            <span th:errors="${plantTime.daysUntilPlantRemoveTotal}" class="error"></span>-->
+       </div>
 
     <input type="submit" value="Create" class="btn btn-primary">
-</form>
 
-
+    </form>
 </div>
 </div>
 

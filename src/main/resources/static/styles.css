@@ -4,6 +4,7 @@ body {
  background: hsla(214, 31%, 26%, 1);
  color: hsla(83, 90%, 80%, 1);
 
+
 }
 
 
@@ -47,6 +48,16 @@ a:hover {
 }
 
 
+ input[type="number"] {
+   width: 80px;
+ }
+
+input[type="checkbox"] {
+  width: 30px;
+  height: 30px;
+}
+
+
 .info-message {
     padding: 1rem;
     background: hsla(214, 31%, 11%, 1);
@@ -63,28 +74,34 @@ a:hover {
 .garden-detail-table-wrapper {
     margin: 1rem;
     padding: 1rem;
-    background: hsla(148, 100%, 15%, 1);
+    background: hsla(214, 31%, 11%, 1);
+
     border-radius: 1rem;
 
 }
 
 .garden-detail-table-border {
     padding: 1rem;
-    background: hsla(120, 100%, 28% , 1);
+ background: hsla(214, 31%, 11%, 1);
+
+
+
     border-radius: 1rem;
 
 }
 
 .garden-detail-table-inner-border {
+    padding-top: 1rem;
     padding-bottom: 1rem;
     padding-left: 1rem;
     padding-right: 1rem;
-    background: hsla(83, 90%, 80%, 1);
-    border-radius: 1rem;
+ background: hsla(214, 31%, 26%, 1);
+
+     border-radius: 1rem;
 }
 
 .garden-detail-table-inner-border-2 {
-    background: hsla(120, 100%, 28% , 1);
+    background: hsla(120, 100%, 15% , 1);
     border-radius: 1rem;
 }
 
@@ -100,34 +117,23 @@ a:hover {
     border-collapse: collapse;
 }
 
-
 .garden-detail-td {
     margin: 0.5rem;
     padding: 0.5rem;
     border-radius: 1rem;
-    background: hsla(83, 90%, 80%, 0.5);
+    background: hsla(83, 90%, 70%, 0.5);
+
 }
+
 
 .garden-detail-td:nth-of-type(2n) {
     border-radius: 1rem;
-    background: hsla(83, 90%, 80%, 0.6);
+    background: hsla(83, 90%, 70%, 0.6);
 }
 
 .garden-detail-tr:nth-of-type(2n) {
     border-radius: 1rem;
-    background: hsla(83, 90%, 80%, 0.3);
-}
-
-
-
-.garden-detail-caption {
-    padding: 1rem;
-    caption-side: top;
-    text-align: left;
-    font-size: 2rem;
-    font-weight: bold;
-    color: black;
-
+    background: hsla(83, 90%, 70%, 0.3);
 }
 
 
@@ -141,9 +147,7 @@ a:hover {
 }
 
 
-
 .table-container {
-
     max-width: 100%;
     overflow-x: scroll;
 }
@@ -152,15 +156,6 @@ a:hover {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     gap: 10px;
-}
-
-.iconSelectionIcon {
- background: hsla(83, 90%, 80%, 1);
-  border: 1px solid black;
-  border-radius: 1rem;
-  padding: 10px;
-  margin: 10px;
-
 }
 
 .active {
@@ -177,8 +172,6 @@ input[type=radio]:checked + label>img {
   box-shadow: 0 0 3px 3px #090;
 }
 
-
-/* Stuff after this is only to make things more pretty*/
 input[type=radio] + label>img {
   border: 1px dashed #444;
   width: 60px;
@@ -191,4 +184,15 @@ input[type=radio]:checked + label>img {
   transform:
     rotateZ(-10deg)
     rotateX(10deg);
+}
+
+.link-shadow{
+text-shadow: 0 0 1rem black;
+text-shadow: 0 0 1rem black;
+}
+
+.centered {
+text-align: center;
+display: block;
+
 }
