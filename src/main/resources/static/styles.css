@@ -4,8 +4,10 @@ body {
  background: hsla(214, 31%, 26%, 1);
  color: hsla(83, 90%, 80%, 1);
 
+ font-size: large;
 
 }
+
 
 
 header {
@@ -196,3 +198,11 @@ text-align: center;
 display: block;
 
 }
+
+.plot-detail{
+display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: min-max(100px, 1fr);;
+}
+
+

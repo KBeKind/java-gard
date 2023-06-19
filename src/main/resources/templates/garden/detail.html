@@ -26,11 +26,12 @@
                                 <div class="garden-detail-td" th:id="${plot.id}">
                                     <div th:if="${plot.planting}">
                                         <div class="centered">
-                                        <h5><a href="/garden" class="link-shadow">Plot Details</a></h5>
-
+                                        <h5><a th:href="'../plot/detail?plotId=' + ${plot.id}" class="link-shadow">Plot Details</a></h5>
+<!--                                            <a th:href="'/garden/detail?gardenId=' + ${garden.id}" th:text="${garden.name}"></a>-->
 
 
                                         <img th:src="'/images/' + ${plot.planting.plant.plantIcon.src} + '.png'" alt="${plot.planting.plant.plantIcon.description}" width="60" />
+
                                             <p th:text="${plot.planting.plant.name}"></p>
                                         </div>
                                             <hr/>
