@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="~{fragments :: head}"></head>
+<body class="container">
+<div class="padding-container">
+<header th:replace="~{fragments :: header}"></header>
+    <div class="padding-container">
+        <h1>Plot Details</h1>
+        <hr/>
+
+
+                <div class="info-message plot-detail padding-container">
+
+
+                    <div>
+                    <ul>
+                        <h4><span>Planting Date:  </span></h4>
+                        <h4><span th:text="${plot.planting.plantingDate}"></span></h4>
+                    <th:block th:if="${plot.planting.daysUntilHarvestStartDate}">
+                        <br/>
+                        <span>Days Until Harvest Starts:  </span><span th:text="${plot.planting.daysUntilHarvestStartDate}"></span>
+                        <br/>
+                        <span>Harvest Start Date:  </span><span th:text="${plot.planting.harvestStartDate}"></span>
+                        <br/>
+                        <a th:href="'../garden/'" >Change Harvest Start</a>
+
+                    </th:block>
+                    <th:block th:if="${plot.planting.daysUntilRemoveStartDate}">
+                        <br/>
+                        <br/>
+                        <span>Days Until Removal Date:  </span><span th:text="${plot.planting.daysUntilRemoveStartDate}"></span>
+                        <br/>
+                        <span>Removal Date:  </span><span th:text="${plot.planting.removeDate}"></span>
+                        <br/>
+                        <a th:href="'../garden'">Change Removal Date</a>
+                    </th:block>
+                    </ul>
+                    </div>
+
+                    <div class="centered">
+                        <h4>Plant Name: <span th:text="${plot.planting.plant.name}"></span></h4>
+                        <img th:src="'/images/' + ${plot.planting.plant.plantIcon.src} + '.png'" alt="${plot.planting.plant.plantIcon.description}" width="150" />
+                        <br/>
+                        <br/>
+
+                    </div>
+
+                    <div>
+                        <h5><span>Garden Name:  </span><span th:text="${plot.bed.garden.name}"></span></h5>
+                        <br/>
+                        <h5><span>Bed Name:  </span><span th:text="${plot.bed.name}"></span></h5>
+                    </div>
+
+                </div>
+                <hr/>
+
+
+
+<h3 th:unless="${plot.planting}" th:text="${explanation}"></h3>
+    </div>
+</div>
+
+</body>
+<th:block th:replace="~{fragments :: endingScripts}"></th:block>
+</html>
