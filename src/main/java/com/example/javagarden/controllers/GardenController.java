@@ -21,6 +21,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 
@@ -131,15 +132,52 @@ public class GardenController {
     }
 
     @GetMapping("delete")
-    public String displayDeleteGardenForm(Model model) {
+    public String displayDeleteGardenForm(Model model, HttpServletRequest request) {
+
+        UserGardenData userGardenData = userGardenDataService.getUserGardenData(request);
+        List<Garden> gardens = userGardenData.getGardens();
+
         model.addAttribute("title", "Delete Gardens");
-        model.addAttribute("gardens", gardenRepository.findAll());
+        model.addAttribute("gardens", gardens);
         return "garden/delete";
     }
 
     @PostMapping("delete")
-    public String processDeleteGardenForm(@RequestParam(required = false) int[] gardenIds) {
+    public String processDeleteGardenForm(@RequestParam(required = false) int[] gardenIds, HttpServletRequest request) {
+
+        UserGardenData userGardenData = userGardenDataService.getUserGardenData(request);
+
+
+        for (Garden garden : userGardenData.getGardens()) {
+
+            for (Integer gardenId : gardenIds){
+
+                if (garden.getId() == gardenId){
+
+                    for (Bed bed : garden.getBeds()) {
+
+                        for (Plot plot: bed.getPlots()){
+
+                            if (plot.hasPlanting()){
+
+                                Planting planting = plot.getPlanting();
+                                plot.removePlanting(planting);
+                                plantingRepository.delete(planting);
+
+                            }
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+        }
+
         DeleteService.deleteData(gardenIds, gardenRepository);
+
         return "redirect:../garden";
     }
 

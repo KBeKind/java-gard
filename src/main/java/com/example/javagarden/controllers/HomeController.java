@@ -22,8 +22,9 @@ public class HomeController {
 
 
 
-    @GetMapping("/")
-    public String transferToHome(Model model) {
+
+    @GetMapping("/index")
+    public String transferToHomeFromIndex(Model model) {
 
         return "home";
     }

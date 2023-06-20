@@ -6,17 +6,31 @@
 <header th:replace="~{fragments :: header}"></header>
     <div class="padding-container">
         <h1>Delete Gardens</h1>
+        <hr/>
+        <p>Select the checkboxes of the Garden(s) you wish to delete.</p>
+        <p>Then click delete at the bottom of the list.</p>
+        <p>Choose carefully deleting is final.</p>
+        <hr/>
+
 <form method="post">
 
     <th:block th:each="garden : ${gardens}">
         <div class="form-group">
             <label>
-                <span th:text="${garden.name}"></span>
+                <h4><span th:text="${garden.name}"></span></h4>
                 <input type="checkbox" name="gardenIds" th:value="${garden.id}" class="form-control">
             </label>
         </div>
         <hr/>
     </th:block>
+            </label>
+
+        </div>
+        <hr/>
+    </th:block>
+
+
+
     <input type="submit" value="Delete" class="btn btn-danger">
 
 </form>

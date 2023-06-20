@@ -31,6 +31,9 @@ public class PlantController {
     private PlantIconRepository plantIconRepository;
 
     @Autowired
+    private PlantingRepository plantingRepository;
+
+    @Autowired
     private UserGardenDataService userGardenDataService;
 
     @GetMapping
@@ -107,7 +110,31 @@ public class PlantController {
     }
 
     @PostMapping("delete")
-    public String processDeletePlantForm(@RequestParam(required = false) int[] plantIds) {
+    public String processDeletePlantForm(@RequestParam(required = false) int[] plantIds, HttpServletRequest request) {
+
+        UserGardenData userGardenData = userGardenDataService.getUserGardenData(request);
+
+        for (Plant plant : userGardenData.getPlants()) {
+
+            for (Integer plantId : plantIds){
+
+                if (plant.getId() == plantId){
+
+                    for (Planting planting : plant.getPlantings()) {
+
+                            planting.getPlot().removePlanting(planting);
+                            plantingRepository.delete(planting);
+
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+
         DeleteService.deleteData( plantIds, plantRepository);
         return "redirect:../plant";
     }

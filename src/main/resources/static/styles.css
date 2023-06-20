@@ -132,19 +132,18 @@ input[type="checkbox"] {
     border-radius: 1rem;
     background: hsla(83, 90%, 70%, 0.6);
 }
-
+/*
 .garden-detail-tr:nth-of-type(2n) {
     border-radius: 1rem;
     background: hsla(83, 90%, 70%, 0.3);
 }
-
+*/
 
 @media (max-width: 1000px) {
 
     .garden-detail-td {
         display: grid;
     }
-
 
 }
 
@@ -161,7 +160,7 @@ input[type="checkbox"] {
 }
 
 .active {
-  background-color: hsla(90, 100%, 56%, 1);;
+  background-color: hsla(90, 100%, 56%, 1);
 }
 
 .input-hidden {
@@ -182,7 +181,6 @@ input[type=radio] + label>img {
 }
 
 input[type=radio]:checked + label>img {
-
   transform:
     rotateZ(-10deg)
     rotateX(10deg);
@@ -196,7 +194,6 @@ text-shadow: 0 0 1rem black;
 .centered {
 text-align: center;
 display: block;
-
 }
 
 .plot-detail{
@@ -206,3 +203,14 @@ display: grid;
 }
 
 
+.light-shadow{
+  text-shadow: 0 0 1rem hsla(83, 90%, 70%, 1);
+}
+
+
+
+.delete-image{
+
+margin-top: 1rem;
+margin-bottom: 1rem;
+}
