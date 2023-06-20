@@ -18,18 +18,55 @@
                         <h4><span th:text="${plot.planting.plantingDate}"></span></h4>
                     <th:block th:if="${plot.planting.daysUntilHarvestStartDate}">
                         <br/>
-                        <span>Days Until Harvest Starts:  </span><span th:text="${plot.planting.daysUntilHarvestStartDate}"></span>
-                        <br/>
+                        <th:block th:if="${plot.planting.daysUntilHarvestStartDate == 0}">
+                        <span th:style="'font-weight: bold; color: hsla(120, 100%, 33%, 1)'">Harvest Starts Today!</span>
+                            <br/>
+                        </th:block>
+                            <th:block th:if="${plot.planting.daysUntilHarvestStartDate > 0}">
+                                <span>Days Until <br/> Harvest:</span>
+                                <span th:text="${plot.planting.daysUntilHarvestStartDate}"></span>
+                            </th:block>
+
+                            <th:block th:if="${plot.planting.daysUntilHarvestStartDate < 0}">
+                                <div  class="font-weight-bold" th:style="'color: hsla(120, 100%, 33%, 1)'">
+                                    <span>Harvest Started </span>
+                                    <br/>
+                                    <span th:text="${plot.planting.daysUntilHarvestStartDate * -1}" ></span>
+                                    <span th:text="${plot.planting.daysUntilHarvestStartDate < -1 ? ' Days ' : ' Day '}"></span>
+                                    <span> Ago.</span>
+                                </div>
+                            </th:block>
+
                         <span>Harvest Start Date:  </span><span th:text="${plot.planting.harvestStartDate}"></span>
                         <br/>
+
                         <a th:href="'../garden/'" >Change Harvest Start</a>
 
+
                     </th:block>
+
                     <th:block th:if="${plot.planting.daysUntilRemoveStartDate}">
                         <br/>
                         <br/>
-                        <span>Days Until Removal Date:  </span><span th:text="${plot.planting.daysUntilRemoveStartDate}"></span>
-                        <br/>
+                        <th:block th:if="${plot.planting.daysUntilRemoveStartDate == 0}">
+                        <span th:style="'font-weight: bold; color: hsla(210, 50%, 50%, 1)'">Removal Starts Today!</span>
+                            </br>
+                        </th:block>
+                        <th:block th:if="${plot.planting.daysUntilRemoveStartDate > 0}">
+                            <span>Days Until <br/> Removal:</span>
+                            <span th:text="${plot.planting.daysUntilRemoveStartDate}"></span>
+                            </br>
+                        </th:block>
+
+                        <th:block th:if="${plot.planting.daysUntilRemoveStartDate < 0}">
+                            <div  class="font-weight-bold" th:style="'color: hsla(210, 50%, 50%, 1)'">
+                                <span>Removal Started </span>
+                                <br/>
+                                <span th:text="${plot.planting.daysUntilRemoveStartDate * -1}" ></span>
+                                <span th:text="${plot.planting.daysUntilRemoveStartDate < -1 ? ' Days ' : ' Day '}"></span>
+                                <span> Ago.</span>
+                            </div>
+                            </th:block>
                         <span>Removal Date:  </span><span th:text="${plot.planting.removeDate}"></span>
                         <br/>
                         <a th:href="'../garden'">Change Removal Date</a>
@@ -38,7 +75,9 @@
                     </div>
 
                     <div class="centered">
-                        <h4>Plant Name: <span th:text="${plot.planting.plant.name}"></span></h4>
+                        <h4>
+                            <a th:href="'../plant/detail?plantId=' + ${plot.planting.plant.id}">Plant Name: <span th:text="${plot.planting.plant.name}"></span></a>
+                        </h4>
                         <img th:src="'/images/' + ${plot.planting.plant.plantIcon.src} + '.png'" alt="${plot.planting.plant.plantIcon.description}" width="150" />
                         <br/>
                         <br/>
@@ -46,18 +85,31 @@
                     </div>
 
                     <div>
-                        <h5><span>Garden Name:  </span><span th:text="${plot.bed.garden.name}"></span></h5>
+                        <h5>
+                            <a th:href="'../garden/detail?gardenId=' + ${plot.bed.garden.id}">Garden Name: <span th:text="${plot.bed.garden.name}"></span></a>
+                        </h5>
                         <br/>
-                        <h5><span>Bed Name:  </span><span th:text="${plot.bed.name}"></span></h5>
+
+                        <h5>
+                            <a th:href="'../garden/detail?gardenId=' + ${plot.bed.garden.id} + '#' + ${plot.bed.id}">
+                        <span>Bed Name:  </span><span th:text="${plot.bed.name}"></span>
+                        </a>
+                        </h5>
                     </div>
 
                 </div>
+
+        <h3 th:unless="${plot.planting}" th:text="${explanation}"></h3>
                 <hr/>
 
+        <h3><a th:href="'../garden/detail?gardenId=' + ${plot.bed.garden.id} + '#' + ${plot.id}">Return to
 
-
-<h3 th:unless="${plot.planting}" th:text="${explanation}"></h3>
+            <span th:text="${plot.planting.plant.name}"></span>
+            <span> Plot in </span>
+            <span th:text="${plot.bed.garden.name}"></span> Garden</a></h3>
     </div>
+
+
 </div>
 
 </body>

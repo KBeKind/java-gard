@@ -17,9 +17,30 @@
         <ul>
             <th:block th:each="planting : ${plant.plantings}">
                 <div class="info-message">
-                    <span>Garden Name:</span><p th:text="${planting.plot.bed.garden.name}"></p>
-                    <span>Bed Name:</span><p th:text="${planting.plot.bed.name}"></p>
-                    <span>Planting Date:</span><p th:text="${planting.plantingDate}"></p>
+                    <h5>
+                    <a th:href="'../garden/detail?gardenId=' + ${planting.plot.bed.garden.id}">
+                    <span>Garden Name:</span>
+                        <span th:text="${planting.plot.bed.garden.name}"></span>
+                    </a>
+                    </h5>
+
+                    <h5>
+                    <a th:href="'../garden/detail?gardenId=' + ${planting.plot.bed.garden.id} + '#' + ${planting.plot.bed.id}">
+                    <span>Bed Name:</span>
+                    <span th:text="${planting.plot.bed.name}"></span>
+                    </a>
+                    </h5>
+                    </br>
+
+                    <h5>
+                    <a th:href="'../plot/detail?plotId=' + ${planting.plot.id}">
+                    <span>Plot Details</span>
+                    </a>
+                    </h5>
+
+
+                    <span>Planting Date:</span>
+                    <p th:text="${planting.plantingDate}"></p>
                     <th:block th:if="${planting.daysUntilHarvestStartDate}">
                     <span>Days Until Harvest Starts:</span><p th:text="${planting.daysUntilHarvestStartDate}"></p>
                     </th:block>

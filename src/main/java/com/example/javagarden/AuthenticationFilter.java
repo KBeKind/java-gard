@@ -23,7 +23,7 @@ public class AuthenticationFilter implements HandlerInterceptor {
     AuthenticationController authenticationController;
 
 
-    private static final List<String> whitelist = Arrays.asList("/home", "/login", "/register", "/logout", "/css");
+    private static final List<String> whitelist = Arrays.asList("/home", "/login", "/register", "/logout", "/css", "/index");
 
     public AuthenticationFilter() {
     }
