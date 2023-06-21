@@ -63,11 +63,9 @@ public class PlantController {
     @GetMapping("create")
     public String displayCreatePlantForm(Model model) {
 
-//        UserGardenData userGardenData = userGardenDataService.getUserGardenData(request);
-
         model.addAttribute("title", "Create Plant");
         model.addAttribute("plant", new Plant());
-//        model.addAttribute("plantTimes", userGardenData.getPlantTimes());
+
         model.addAttribute("plantIcons", plantIconRepository.findAll());
         model.addAttribute("newPlantTime", new PlantTime());
 

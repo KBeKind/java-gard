@@ -15,7 +15,7 @@
                     <div>
                     <ul>
                         <h4><span>Planting Date:  </span></h4>
-                        <h4><span th:text="${plot.planting.plantingDate}"></span></h4>
+                        <h4><span th:text="${formattedPlantingDate}"></span></h4>
                     <th:block th:if="${plot.planting.daysUntilHarvestStartDate}">
                         <br/>
                         <th:block th:if="${plot.planting.daysUntilHarvestStartDate == 0}">
@@ -25,6 +25,7 @@
                             <th:block th:if="${plot.planting.daysUntilHarvestStartDate > 0}">
                                 <span>Days Until <br/> Harvest:</span>
                                 <span th:text="${plot.planting.daysUntilHarvestStartDate}"></span>
+                                </br>
                             </th:block>
 
                             <th:block th:if="${plot.planting.daysUntilHarvestStartDate < 0}">
@@ -37,10 +38,39 @@
                                 </div>
                             </th:block>
 
-                        <span>Harvest Start Date:  </span><span th:text="${plot.planting.harvestStartDate}"></span>
+                        <th:block th:unless="${editDateType == 1}">
+                        <span>Harvest Start Date:  </span><span th:text="${formattedHarvestDate}"></span>
                         <br/>
+                        <a  th:href="'../plot/detail?plotId=' + ${plot.id} + '&editDateType=1'" >Change Harvest Start</a>
+                        </th:block>
+                        <th:block th:if="${editDateType == 1}">
+                        <br/>
+                        <br/>
+                            <form method="post">
 
-                        <a th:href="'../garden/'" >Change Harvest Start</a>
+                                <div class="form-group">
+
+                                    <h4>Set Harvest Start Date</h4>
+
+                                    Current Harvest Start Date: <span th:text="${formattedHarvestDate}"></span>
+
+                                    </br>
+
+                                    <label>New Harvest Start Date:
+                                        <input type="date" th:field="${plotDTO.editDate}" class="form-control" />
+
+                                    </label>
+                                    <!--            <span th:errors="${plantTime.daysUntilHarvestTotal}" class="error"></span>-->
+                                    <br/>
+                                </div>
+
+                                <input type="submit" value="Update" class="btn btn-primary">
+
+                            </form>
+
+
+
+                        </th:block>
 
 
                     </th:block>
@@ -67,9 +97,9 @@
                                 <span> Ago.</span>
                             </div>
                             </th:block>
-                        <span>Removal Date:  </span><span th:text="${plot.planting.removeDate}"></span>
+                        <span>Removal Date:  </span><span th:text="${formattedRemoveDate}"></span>
                         <br/>
-                        <a th:href="'../garden'">Change Removal Date</a>
+                        <a th:href="'../plot/detail?plantId=' + ${plot.planting.plant.id} + '&editedDate=removeDate'">Change Removal Date</a>
                     </th:block>
                     </ul>
                     </div>
