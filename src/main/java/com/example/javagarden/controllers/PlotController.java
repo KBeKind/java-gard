@@ -1,32 +1,46 @@
 package com.example.javagarden.controllers;
 
 
+import com.example.javagarden.data.PlantingRepository;
 import com.example.javagarden.data.PlotRepository;
 import com.example.javagarden.models.*;
+import com.example.javagarden.models.dto.PlotDTO;
+import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import com.example.javagarden.service.UserGardenDataService;
 
 
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 
+import java.util.Date;
 import java.util.List;
 
 @Controller
 @RequestMapping("plot")
 public class PlotController {
 
+
+    @Autowired
+    private PlantingRepository plantingRepository;
+
+    @Autowired
+    private PlotRepository plotRepository;
+
+
     @Autowired
     private UserGardenDataService userGardenDataService;
 
 
-
     @GetMapping("detail")
-    public String displayPlotDetails(@RequestParam Integer plotId, Model model, HttpServletRequest request) {
+    public String displayPlotDetails(@RequestParam Integer plotId, @RequestParam(required = false) Integer editDateType, Model model, HttpServletRequest request) {
+
 
         UserGardenData userGardenData = userGardenDataService.getUserGardenData(request);
 
@@ -55,14 +69,35 @@ public class PlotController {
             for (Bed bed : garden.getBeds()) {
                 for (Plot plot : bed.getPlots()) {
                     if (plot.getId() == plotId) {
+
+
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/d/yyyy");
+
+                        String formattedHarvestDate = formatter.format(plot.getPlanting().getHarvestStartDate());
+                        String formattedRemoveDate = formatter.format(plot.getPlanting().getRemoveDate());
+                        String formattedPlantingDate = formatter.format(plot.getPlanting().getPlantingDate());
+
+
+                        PlotDTO plotDTO = new PlotDTO();
+                        Date date = new Date();
+                        plotDTO.setEditDate(date);
+                        plotDTO.setEditDateType(editDateType);
+
                         model.addAttribute("title", "Garden: " + garden.getName() + "| Bed:" +bed.getName() + "| Plot Details:");
                         model.addAttribute("plot", plot);
+                        model.addAttribute("editDateType", editDateType);
+                        model.addAttribute("plotDTO", plotDTO);
+                        model.addAttribute("formattedHarvestDate", formattedHarvestDate);
+                        model.addAttribute("formattedRemoveDate", formattedRemoveDate);
+                        model.addAttribute("formattedPlantingDate", formattedPlantingDate);
+
+
+
                         return "plot/detail";
                     }
                 }
             }
         }
-
 
         // IF NOT FOUND
         model.addAttribute("title", "Invalid Plot Id: " + plotId);
@@ -72,6 +107,51 @@ public class PlotController {
 
 
 
+    @PostMapping("detail")
+    public String postPlotDetails( @ModelAttribute PlotDTO plotDTO, @RequestParam Integer plotId,
+                                  Model model, HttpServletRequest request){
+
+
+        UserGardenData userGardenData = userGardenDataService.getUserGardenData(request);
+        Date date = plotDTO.getEditDate();
+        LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
+        //To find current plot and planting from userGardenData garden
+
+        for (Garden garden : userGardenData.getGardens()) {
+            for (Bed bed : garden.getBeds()) {
+                for (Plot plot : bed.getPlots()) {
+                    if (plot.getId() == plotId) {
+
+                        Planting planting = plot.getPlanting();
+
+
+                        if (plotDTO.getEditDateType() == 1) {
+
+                            planting.deleteHarvestStartDate();
+                            planting.setHarvestStartDate(localDate);
+                            plantingRepository.save(planting);
+
+                            return "redirect:/plot/detail?plotId=" + plotId ;
+
+                        } else if (plotDTO.getEditDateType() == 2) {
+
+                            planting.deleteRemoveDate();
+                            planting.setRemoveDate(localDate);
+                            plantingRepository.save(planting);
+
+                            return "redirect:/plot/detail?plotId=" + plotId ;
+                        }
+
+                    }
+                }
+            }
+        }
+
+
+        return "redirect:/plot/detail?plotId=" + plotId ;
+
+    }
 
 
 }

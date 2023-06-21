@@ -86,6 +86,15 @@ public class Planting extends AbstractEntity{
         this.harvestStartDate = harvestStartDate;
     }
 
+
+    public void deleteHarvestStartDate() {
+
+        this.harvestStartDate = null;
+
+    }
+
+
+
     public LocalDate getRemoveDate() {
         return removeDate;
     }
@@ -94,6 +103,12 @@ public class Planting extends AbstractEntity{
         this.removeDate = removeDate;
     }
 
+
+    public void deleteRemoveDate() {
+
+        this.removeDate = null;
+
+    }
 
     public long getDaysUntilHarvestStartDate() {
         return daysUntilHarvestStartDate;
