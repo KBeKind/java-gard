@@ -43,6 +43,7 @@
                         <br/>
                         <a  th:href="'../plot/detail?plotId=' + ${plot.id} + '&editDateType=1'" >Change Harvest Start</a>
                         </th:block>
+
                         <th:block th:if="${editDateType == 1}">
                         <br/>
                             <form method="post">
@@ -96,9 +97,45 @@
                                 <span> Ago.</span>
                             </div>
                             </th:block>
-                        <span>Removal Date:  </span><span th:text="${formattedRemoveDate}"></span>
-                        <br/>
-                        <a th:href="'../plot/detail?plantId=' + ${plot.planting.plant.id} + '&editedDate=removeDate'">Change Removal Date</a>
+
+
+
+                        <th:block th:unless="${editDateType == 2}">
+                            <span>Removal Date:  </span><span th:text="${formattedRemoveDate}"></span>
+                            <br/>
+                            <a  th:href="'../plot/detail?plotId=' + ${plot.id} + '&editDateType=2'" >Change Removal Date</a>
+                        </th:block>
+
+
+                        <th:block th:if="${editDateType == 2}">
+                            <br/>
+                            <form method="post">
+
+                                <div class="form-group">
+
+                                    <h4>Set Remove Date</h4>
+
+                                    Current Remove Date: <span th:text="${formattedRemoveDate}"></span>
+
+                                    </br>
+
+                                    <label>New Remove Date:
+                                        <input type="date" th:field="${plotDTO.editDate}" class="form-control" />
+
+                                    </label>
+                                    <!--            <span th:errors="${plantTime.daysUntilHarvestTotal}" class="error"></span>-->
+                                    <br/>
+                                </div>
+
+                                <input type="submit" value="Update" class="btn btn-primary">
+
+                            </form>
+
+
+
+                        </th:block>
+
+
                     </th:block>
                     </ul>
                     </div>
