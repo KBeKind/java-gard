@@ -265,8 +265,8 @@ public class GardenController {
                     LocalDate removeStartDate = localDate.plusDays(plant.getPlantTime().getDaysUntilPlantRemoveTotal());
                     planting.setHarvestStartDate(harvestStartDate);
                     planting.setRemoveDate(removeStartDate);
-                    planting.setDaysUntilHarvestStartDate(ChronoUnit.DAYS.between(planting.getPlantingDate(), planting.getHarvestStartDate()));
-                    planting.setDaysUntilRemoveStartDate(ChronoUnit.DAYS.between(planting.getPlantingDate(), planting.getRemoveDate()));
+                    planting.setDaysUntilHarvestStartDate((int) ChronoUnit.DAYS.between(planting.getPlantingDate(), planting.getHarvestStartDate()));
+                    planting.setDaysUntilRemoveStartDate((int) ChronoUnit.DAYS.between(planting.getPlantingDate(), planting.getRemoveDate()));
                     plot.setPlanting(planting);
                     plantingRepository.save(planting);
 

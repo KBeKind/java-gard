@@ -70,12 +70,20 @@ public class PlotController {
                 for (Plot plot : bed.getPlots()) {
                     if (plot.getId() == plotId) {
 
-
                         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/d/yyyy");
 
-                        String formattedHarvestDate = formatter.format(plot.getPlanting().getHarvestStartDate());
-                        String formattedRemoveDate = formatter.format(plot.getPlanting().getRemoveDate());
+                        if(plot.getPlanting().getHarvestStartDate() != null) {
+                            String formattedHarvestDate = formatter.format(plot.getPlanting().getHarvestStartDate());
+                            model.addAttribute("formattedHarvestDate", formattedHarvestDate);
+                        }
+
+                        if(plot.getPlanting().getRemoveDate() != null) {
+                            String formattedRemoveDate = formatter.format(plot.getPlanting().getRemoveDate());
+                            model.addAttribute("formattedRemoveDate", formattedRemoveDate);
+                        }
+
                         String formattedPlantingDate = formatter.format(plot.getPlanting().getPlantingDate());
+                        model.addAttribute("formattedPlantingDate", formattedPlantingDate);
 
 
                         PlotDTO plotDTO = new PlotDTO();
@@ -87,10 +95,6 @@ public class PlotController {
                         model.addAttribute("plot", plot);
                         model.addAttribute("editDateType", editDateType);
                         model.addAttribute("plotDTO", plotDTO);
-                        model.addAttribute("formattedHarvestDate", formattedHarvestDate);
-                        model.addAttribute("formattedRemoveDate", formattedRemoveDate);
-                        model.addAttribute("formattedPlantingDate", formattedPlantingDate);
-
 
 
                         return "plot/detail";
@@ -108,7 +112,7 @@ public class PlotController {
 
 
     @PostMapping("detail")
-    public String postPlotDetails( @ModelAttribute PlotDTO plotDTO, @RequestParam Integer plotId,
+    public String postPlotDetails( @ModelAttribute PlotDTO plotDTO, @RequestParam Integer plotId, @RequestParam(value="button", required=true) String button,
                                   Model model, HttpServletRequest request){
 
 
@@ -117,6 +121,7 @@ public class PlotController {
         LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 
         //To find current plot and planting from userGardenData garden
+
 
         for (Garden garden : userGardenData.getGardens()) {
             for (Bed bed : garden.getBeds()) {
@@ -129,7 +134,12 @@ public class PlotController {
                         if (plotDTO.getEditDateType() == 1) {
 
                             planting.deleteHarvestStartDate();
-                            planting.setHarvestStartDate(localDate);
+
+
+                            if(button.equals("Update")){
+                                planting.setHarvestStartDate(localDate);
+                            }
+
                             plantingRepository.save(planting);
 
                             return "redirect:/plot/detail?plotId=" + plotId ;
@@ -137,7 +147,10 @@ public class PlotController {
                         } else if (plotDTO.getEditDateType() == 2) {
 
                             planting.deleteRemoveDate();
-                            planting.setRemoveDate(localDate);
+
+                            if(button.equals("Update")) {
+                                planting.setRemoveDate(localDate);
+                            }
                             plantingRepository.save(planting);
 
                             return "redirect:/plot/detail?plotId=" + plotId ;

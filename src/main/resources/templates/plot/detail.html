@@ -16,7 +16,7 @@
                     <ul>
                         <h4><span>Planting Date:  </span></h4>
                         <h4><span th:text="${formattedPlantingDate}"></span></h4>
-                    <th:block th:if="${plot.planting.daysUntilHarvestStartDate}">
+                    <th:block th:if="${plot.planting.harvestStartDate}">
                         <br/>
                         <th:block th:if="${plot.planting.daysUntilHarvestStartDate == 0}">
                         <span th:style="'font-weight: bold; color: hsla(120, 100%, 33%, 1)'">Harvest Starts Today!</span>
@@ -41,8 +41,34 @@
                         <th:block th:unless="${editDateType == 1}">
                         <span>Harvest Start Date:  </span><span th:text="${formattedHarvestDate}"></span>
                         <br/>
-                        <a  th:href="'../plot/detail?plotId=' + ${plot.id} + '&editDateType=1'" >Change Harvest Start</a>
                         </th:block>
+
+                    </th:block>
+
+                        <th:block th:if="${plot.planting.harvestStartDate}">
+
+                        <th:block th:unless="${editDateType == 1}">
+
+                        <a  th:href="'../plot/detail?plotId=' + ${plot.id} + '&editDateType=1'" >Change Harvest Start</a>
+                            <br/>
+                            <br/>
+                        </th:block>
+
+                        </th:block>
+
+
+                        <th:block th:unless="${plot.planting.harvestStartDate}">
+
+                            <th:block th:unless="${editDateType == 1}">
+
+                                <a  th:href="'../plot/detail?plotId=' + ${plot.id} + '&editDateType=1'" >Add Harvest Date</a>
+                                <br/>
+                                <br/>
+                            </th:block>
+
+                        </th:block>
+
+
 
                         <th:block th:if="${editDateType == 1}">
                         <br/>
@@ -52,10 +78,11 @@
 
                                     <h4>Set Harvest Start Date</h4>
 
+                                    <th:block th:if="${plot.planting.harvestStartDate}">
                                     Current Harvest Start Date: <span th:text="${formattedHarvestDate}"></span>
 
                                     </br>
-
+                                    </th:block>
                                     <label>New Harvest Start Date:
                                         <input type="date" th:field="${plotDTO.editDate}" class="form-control" />
 
@@ -64,7 +91,9 @@
                                     <br/>
                                 </div>
 
-                                <input type="submit" value="Update" class="btn btn-primary">
+                                <input type="submit" name="button" value="Update" th:mo class="btn btn-primary">
+
+                                <input type="submit" name="button" value="Delete" class="btn btn-danger">
 
                             </form>
 
@@ -73,11 +102,10 @@
                         </th:block>
 
 
-                    </th:block>
 
-                    <th:block th:if="${plot.planting.daysUntilRemoveStartDate}">
-                        <br/>
-                        <br/>
+                    <th:block th:if="${plot.planting.removeDate}">
+
+
                         <th:block th:if="${plot.planting.daysUntilRemoveStartDate == 0}">
                         <span th:style="'font-weight: bold; color: hsla(210, 50%, 50%, 1)'">Removal Starts Today!</span>
                             </br>
@@ -100,11 +128,39 @@
 
 
 
+                    </th:block>
+
+
+
+                    <th:block th:if="${plot.planting.removeDate}">
+
                         <th:block th:unless="${editDateType == 2}">
                             <span>Removal Date:  </span><span th:text="${formattedRemoveDate}"></span>
                             <br/>
-                            <a  th:href="'../plot/detail?plotId=' + ${plot.id} + '&editDateType=2'" >Change Removal Date</a>
+
                         </th:block>
+                    </th:block>
+
+                        <th:block th:if="${plot.planting.removeDate}">
+
+                            <th:block th:unless="${editDateType == 2}">
+
+                                <a  th:href="'../plot/detail?plotId=' + ${plot.id} + '&editDateType=2'" >Change Removal Date</a>
+                            </th:block>
+
+                        </th:block>
+
+
+                        <th:block th:unless="${plot.planting.removeDate}">
+
+                            <th:block th:unless="${editDateType == 2}">
+
+                                <a  th:href="'../plot/detail?plotId=' + ${plot.id} + '&editDateType=2'" >Add Remove Date</a>
+                            </th:block>
+
+                        </th:block>
+
+
 
 
                         <th:block th:if="${editDateType == 2}">
@@ -127,7 +183,9 @@
                                     <br/>
                                 </div>
 
-                                <input type="submit" value="Update" class="btn btn-primary">
+                                <input type="submit" name="button" value="Update" th:mo class="btn btn-primary">
+
+                                <input type="submit" name="button" value="Delete" class="btn btn-danger">
 
                             </form>
 
@@ -136,7 +194,6 @@
                         </th:block>
 
 
-                    </th:block>
                     </ul>
                     </div>
 
