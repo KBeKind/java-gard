@@ -5,6 +5,7 @@ import jakarta.persistence.Entity;
 
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
+import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 
@@ -31,9 +32,9 @@ public class Planting extends AbstractEntity{
 
     private LocalDate removeDate;
 
-    private long daysUntilHarvestStartDate;
+    private Integer daysUntilHarvestStartDate;
 
-    private long daysUntilRemoveStartDate;
+    private Integer daysUntilRemoveStartDate;
 
 //    LocalDate dateOfJune15 = LocalDate.of(2023, 6, 15);
 //    Period period = Period.between(today, dateOfJune15);
@@ -114,22 +115,33 @@ public class Planting extends AbstractEntity{
         return daysUntilHarvestStartDate;
     }
 
-    public void setDaysUntilHarvestStartDate(long daysUntilHarvestStartDate) {
+    public void setDaysUntilHarvestStartDate(Integer daysUntilHarvestStartDate) {
         this.daysUntilHarvestStartDate = daysUntilHarvestStartDate;
     }
+
+    public void deleteDaysUntilHarvestStartDate() {
+
+        this.daysUntilHarvestStartDate = null;
+
+    }
+
 
     public long getDaysUntilRemoveStartDate() {
         return daysUntilRemoveStartDate;
     }
 
-    public void setDaysUntilRemoveStartDate(long daysUntilRemoveStartDate) {
+    public void setDaysUntilRemoveStartDate(Integer daysUntilRemoveStartDate) {
         this.daysUntilRemoveStartDate = daysUntilRemoveStartDate;
     }
 
+    public void deleteDaysUntilRemoveStartDate() {
+        this.daysUntilRemoveStartDate = null;
+    }
+
     public void updateDaysUntilHarvestStartDate() {
-        this.daysUntilHarvestStartDate = ChronoUnit.DAYS.between(LocalDate.now(), getHarvestStartDate());
+        this.daysUntilHarvestStartDate = Math.toIntExact(ChronoUnit.DAYS.between(LocalDate.now(), getHarvestStartDate()));
     }
     public void updateDaysUntilRemoveStartDate() {
-        this.daysUntilRemoveStartDate = ChronoUnit.DAYS.between(LocalDate.now(), getRemoveDate());
+        this.daysUntilRemoveStartDate = Math.toIntExact(ChronoUnit.DAYS.between(LocalDate.now(), getRemoveDate()));
     }
 }
