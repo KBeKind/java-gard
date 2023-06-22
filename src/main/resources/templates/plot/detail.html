@@ -18,10 +18,13 @@
                         <h4><span th:text="${formattedPlantingDate}"></span></h4>
                     <th:block th:if="${plot.planting.harvestStartDate}">
                         <br/>
+<!--                        <th:block th:if="${plot.planting.daysUntilHarvestStartDate}">-->
+
                         <th:block th:if="${plot.planting.daysUntilHarvestStartDate == 0}">
                         <span th:style="'font-weight: bold; color: hsla(120, 100%, 33%, 1)'">Harvest Starts Today!</span>
                             <br/>
                         </th:block>
+<!--                        </th:block>-->
                             <th:block th:if="${plot.planting.daysUntilHarvestStartDate > 0}">
                                 <span>Days Until <br/> Harvest:</span>
                                 <span th:text="${plot.planting.daysUntilHarvestStartDate}"></span>
@@ -96,7 +99,7 @@
                                 <input type="submit" name="button" value="Delete" class="btn btn-danger">
 
                             </form>
-
+<br/>
 
 
                         </th:block>
@@ -105,11 +108,13 @@
 
                     <th:block th:if="${plot.planting.removeDate}">
 
+<!--                        <th:block th:if="${plot.planting.daysUntilRemoveStartDate}">-->
 
                         <th:block th:if="${plot.planting.daysUntilRemoveStartDate == 0}">
                         <span th:style="'font-weight: bold; color: hsla(210, 50%, 50%, 1)'">Removal Starts Today!</span>
                             </br>
                         </th:block>
+<!--                        </th:block>-->
                         <th:block th:if="${plot.planting.daysUntilRemoveStartDate > 0}">
                             <span>Days Until <br/> Removal:</span>
                             <span th:text="${plot.planting.daysUntilRemoveStartDate}"></span>

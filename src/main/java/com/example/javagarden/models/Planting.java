@@ -36,9 +36,7 @@ public class Planting extends AbstractEntity{
 
     private Integer daysUntilRemoveStartDate;
 
-//    LocalDate dateOfJune15 = LocalDate.of(2023, 6, 15);
-//    Period period = Period.between(today, dateOfJune15);
-//
+
 
 
     public Planting(Plot plot, Plant plant, LocalDate plantingDate) {
