@@ -263,14 +263,38 @@ public class GardenController {
                     Planting planting = new Planting(plot, plant, localDate);
                     LocalDate harvestStartDate = localDate.plusDays(plant.getPlantTime().getDaysUntilHarvestTotal());
                     LocalDate removeStartDate = localDate.plusDays(plant.getPlantTime().getDaysUntilPlantRemoveTotal());
-                    planting.setHarvestStartDate(harvestStartDate);
-                    planting.setRemoveDate(removeStartDate);
-                    planting.setDaysUntilHarvestStartDate((int) ChronoUnit.DAYS.between(planting.getPlantingDate(), planting.getHarvestStartDate()));
-                    planting.setDaysUntilRemoveStartDate((int) ChronoUnit.DAYS.between(planting.getPlantingDate(), planting.getRemoveDate()));
+
+                    if (harvestStartDate != localDate){
+                        planting.setHarvestStartDate(harvestStartDate);
+
+                        Integer setDaysUntilHarvestStartDate = ((int) ChronoUnit.DAYS.between(planting.getPlantingDate(), planting.getHarvestStartDate()));
+
+                        if (setDaysUntilHarvestStartDate == 0) {
+                            planting.setDaysUntilHarvestStartDate(setDaysUntilHarvestStartDate);
+
+                        }
+
+
+                    }
+                    if (removeStartDate != localDate){
+                        planting.setRemoveDate(removeStartDate);
+
+                        Integer setDaysUntilRemoveStartDate = ((int) ChronoUnit.DAYS.between(planting.getPlantingDate(), planting.getRemoveDate()));
+
+                        if (setDaysUntilRemoveStartDate != 0) {
+                            planting.setDaysUntilRemoveStartDate(setDaysUntilRemoveStartDate);
+
+                        }
+
+                    }
+
+
+
+
                     plot.setPlanting(planting);
                     plantingRepository.save(planting);
 
-
+//todo ADD TO ABOVE CODE BLOCK to check if it will be zero and make it null instead?
 
                     return "redirect:/garden/detail?gardenId=" + plantingDTO.getGardenId() + "#" + plot.getId();
 
