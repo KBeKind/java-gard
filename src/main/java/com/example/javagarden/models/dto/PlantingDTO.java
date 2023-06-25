@@ -1,7 +1,9 @@
 package com.example.javagarden.models.dto;
 
 
+import com.example.javagarden.models.Plant;
 import com.example.javagarden.models.PlantIcon;
+import jakarta.validation.constraints.NotNull;
 
 public class PlantingDTO {
 
@@ -12,13 +14,19 @@ public class PlantingDTO {
 
     private int gardenId;
 
-    private PlantIcon plantIcon;
+    @NotNull(message = "Selecting a Plant is required.")
+    private int plantId;
 
-    public PlantingDTO(String name, int plotId, int gardenId, PlantIcon plantIcon) {
+
+
+    public PlantingDTO(String name, int plotId, int gardenId, int plantId, String errorMsg) {
         this.name = name;
         this.plotId = plotId;
         this.gardenId = gardenId;
-        this.plantIcon = plantIcon;
+
+        //new stuff below
+        this.plantId = plantId;
+
     }
 
 
@@ -50,13 +58,15 @@ public class PlantingDTO {
         this.gardenId = gardenId;
     }
 
-    public PlantIcon getPlantIcon() {
-        return plantIcon;
+    public int getPlantId() {
+        return plantId;
     }
 
-    public void setPlantIcon(PlantIcon plantIcon) {
-        this.plantIcon = plantIcon;
+    public void setPlantId(int plantId) {
+        this.plantId = plantId;
     }
+
+
 }
 
 

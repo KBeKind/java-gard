@@ -25,10 +25,7 @@ public class Planting extends AbstractEntity{
     @OneToOne
     private Plot plot;
 
-    @NotBlank(message = "Garden name is required")
-    String name;
-
-    @NotNull(message = "Selecting a plant is required")
+//    @NotNull(message = "Selecting a plant is required")
     @ManyToOne
     private Plant plant;
 

@@ -99,5 +99,8 @@ public class Bed extends NamedEntity{
         return plots;
     }
 
+
+
+
 }
 

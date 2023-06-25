@@ -8,6 +8,7 @@ import com.example.javagarden.models.*;
 
 import com.example.javagarden.service.DeleteService;
 import com.example.javagarden.service.UserGardenDataService;
+import jakarta.servlet.ServletConfig;
 import jakarta.servlet.http.HttpServletRequest;
 
 import jakarta.validation.Valid;
@@ -15,7 +16,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
+import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -75,7 +78,6 @@ public class GardenController {
 
 
         if (errors.hasErrors()) {
-            model.addAttribute("title", "Start Garden");
             return "garden/start";
         }
 
@@ -182,13 +184,15 @@ public class GardenController {
     }
 
     @GetMapping("detail")
-    public String displayGardenDetails(@RequestParam Integer gardenId, HttpServletRequest request, Model model) {
+    public String displayGardenDetails(@RequestParam Integer gardenId, @RequestParam(required = false) Integer plotId, HttpServletRequest request, Model model) {
 
         UserGardenData userGardenData = userGardenDataService.getUserGardenData(request);
 
         Optional<Garden> result = gardenRepository.findById(gardenId);
 
-
+        if(plotId != null){
+            model.addAttribute("errorPlotId", plotId);
+        }
 
 
         if (result.isEmpty()) {
@@ -231,22 +235,25 @@ public class GardenController {
                                        @RequestParam(required = false) Integer plotId, Errors errors, Model model) {
 
 
-        if (errors.hasErrors()) {
-            return "redirect:/garden/detail?gardenId=" + plantingDTO.getGardenId();
+
+
+        if(plantingDTO.getPlantId() == 0){
+
+            model.addAttribute("error", "Please select a plant.");
+
+            // Return to the planting page
+
+            return "redirect:/garden/detail?gardenId=" + plantingDTO.getGardenId() + "&plotId=" + plantingDTO.getPlotId() + "#" + plantingDTO.getPlotId();
+
+
         }
 
-        if(plantId == null){
 
-            return "redirect:/garden/detail?gardenId=" + plantingDTO.getGardenId();
-
-        }
-
-
-        Optional<Plot> result = plotRepository.findById(plotId);
+        Optional<Plot> result = plotRepository.findById(plantingDTO.getPlotId());
         if (result.isEmpty()) {
             model.addAttribute("title", "Invalid Category ID: ");
 
-            return "redirect:../";
+            return "redirect:/garden/detail?gardenId=" + plantingDTO.getGardenId();
 
         } else {
 
@@ -264,7 +271,7 @@ public class GardenController {
             } else {
 
 
-                Optional<Plant> plantResult = plantRepository.findById(plantId);
+                Optional<Plant> plantResult = plantRepository.findById(plantingDTO.getPlantId());
                 if (plantResult.isEmpty()) {
                     model.addAttribute("title", "Invalid Category ID: ");
 //                  ADD ERROR HANDLING IF NEEDED
