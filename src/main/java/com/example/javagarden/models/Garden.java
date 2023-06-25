@@ -43,6 +43,10 @@ public class Garden extends NamedEntity {
     public void setUserGardenData(UserGardenData userGardenData) {
         this.userGardenData = userGardenData;
     }
+
+
+
+
 }
 
 

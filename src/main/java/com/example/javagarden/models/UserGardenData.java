@@ -14,7 +14,7 @@ import java.util.List;
 public class UserGardenData extends AbstractEntity {
 
 
-//    @Valid
+    //    @Valid
 //    @NotNull
     @OneToOne
     private User user;
@@ -55,4 +55,76 @@ public class UserGardenData extends AbstractEntity {
     public List<Garden> getGardens() {
         return gardens;
     }
+
+
+    public boolean checkId(String type, Integer id) {
+
+        if (type.equals("bed")) {
+
+            for (Garden garden : gardens) {
+
+                List<Bed> beds = garden.getBeds();
+
+                for (Bed bed : beds) {
+
+                    if (bed.getId() == id) {
+                        return true;
+                    }
+
+                }
+
+            }
+
+        }
+        return false;
+
+    }
+
+
 }
+//    public boolean checkId(String type, Integer id) {
+//
+////        if (type.equals("garden")) {
+////            for (Garden garden : gardens) {
+////
+////                if (garden.getId() == id) {
+////
+////                    return true;
+////                }
+////            }
+////            return false;
+////
+////        } else if (type.equals("plant")) {
+////
+////
+////            for (Plant plant : plants) {
+////
+////                if (plant.getId() == id) {
+////
+////                    return true;
+////                }
+////            }
+////            return false;
+////        } else
+//            if (type.equals("bed")) {
+//
+//            for (Garden garden : gardens) {
+//
+//                List<Bed> beds = garden.getBeds();
+//
+//                for (Bed bed : beds) {
+//
+//                        if (bed.getId() == id) {
+//                            return true;
+//
+//                    }
+//
+//                }
+//
+//            }
+//
+//        }
+//        return false;
+//
+//    }
+

@@ -32,7 +32,9 @@
                     <h3 class="garden-detail-caption" th:text="${bed.name}"></h3>
                     </div>
                     <div class="div-column right-align">
-                    <button class="btn btn-secondary">Delete Bed</button>
+                        <a th:href="'../bed/delete?gardenId=' + ${garden.id} + '&bedId='+ ${bed.id}">
+                    <button class="btn btn-secondary delete-buttons" th:id="'delete-button' + ${bed.id}">Delete Bed</button>
+                        </a>
                     </div>
                 </div>
                 <div class="garden-detail-table-border">
@@ -125,14 +127,23 @@
                                         <input hidden name="plotId" th:value="${plot.id}"/>
 
 
-                                       <select class="bottom-margin"  th:name="plantId">
-                                            <option>Select Plant</option>
+                                       <select class="bottom-margin"  th:field="*{plantingDTO.plantId}">
+                                            <option th:value="0">Select Plant</option>
                                            <option th:each="plant : ${plants}"
                                                     th:value="${plant.id}"
                                                     th:text="${plant.name}"
                                             ></option>
                                        </select>
-<!--                                        <p class="error" th:errors="${}"></p>-->
+                                        <p class="error" th:errors="${plantingDTO.plantId}"></p>
+
+                                        <th:block th:if="${plot.id} == ${errorPlotId}">
+                                            <h5 class="error">Selecting a Plant<br/>is required.</h5>
+                                        </th:block>
+
+<!--                                            <th:block th:if="${plantingDTO.errorMsg}">-->
+
+<!--                                                <p class="error" th:text="${plantingDTO.errorMsg}"></p>-->
+<!--                                            </th:block>-->
 
 
                                         <button class="btn btn-primary" th:text="Plant"></button>
@@ -155,7 +166,27 @@
     </div>
 </div>
 
+<script>
+// Get the reference to the delete buttons
+let deleteButtons = document.querySelectorAll(".delete-buttons");
 
+// Create a function to show the confirm popup
+function showConfirmPopup() {
+  // Show a confirm popup
+  var confirmPopup = window.confirm("Are you sure you want to delete this?");
+
+  // If the user clicks yes, delete the record
+  if (confirmPopup) {
+
+
+  }
+}
+
+// Add an event listener to the delete buttons
+deleteButtons.forEach(function(button) {
+  button.addEventListener("click", showConfirmPopup);
+});
+</script>
 
 <th:block th:replace="~{fragments :: endingScripts}"></th:block>
 </body>
