@@ -5,7 +5,15 @@
 <div class="padding-container">
 <header th:insert="~{fragments :: header}"></header>
     <div class="padding-container">
-<h1 th:text="${garden.name}"></h1>
+<h1 th:text="${garden.name} + ' garden'"></h1>
+
+        <div class="info-message">
+
+        <h5>Beds are divided into plots</h5>
+          <h5>Plots are spaces for planting and a bed can be up to 4 x 20 (80) plots</h5>
+
+        </div>
+    <br/>
 <form method="post">
 
         <th:block th:each="i: ${#numbers.sequence(1, bedNum)}">
@@ -13,17 +21,23 @@
                 <label> Bed Name
                     <input type="text" name="bedName" th:value="${'bed' + i}"/>
                 </label>
-                <label> Bed width (in plots)
-                    <input type="number" min="1" max="5" name="bedWidthPlots" th:value="${1}"/>
+                <br/>
+                <br/>
+                <label> Bed width in plots:
+                    (max 4)
+                    <input type="number" min="1" max="4" name="bedWidthPlots" th:value="${1}"/>
                 </label>
-                <label> Bed length (in plots)
+                <br/>
+                <br/>
+                <label> Bed length in plots:
+                        (max 20)
                     <input type="number" min="1" max="20" name="bedLengthPlots" th:value="${1}"/>
                 </label>
-
+                <hr/>
             </div>
         </th:block>
 
-            <input type="submit" value="Create" class="btn btn-primary">
+            <input type="submit" value="Create Garden" class="btn btn-primary">
 
         </form>
 

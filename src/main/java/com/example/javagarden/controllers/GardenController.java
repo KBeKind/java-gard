@@ -127,7 +127,7 @@ public class GardenController {
         garden.setUserGardenData(userGardenData);
 
         gardenRepository.save(garden);
-        return "redirect:../garden";
+        return "redirect:../garden/detail?gardenId=" + garden.getId();
 
     }
 
@@ -182,8 +182,14 @@ public class GardenController {
     }
 
     @GetMapping("detail")
-    public String displayGardenDetails(@RequestParam Integer gardenId, Model model) {
+    public String displayGardenDetails(@RequestParam Integer gardenId, HttpServletRequest request, Model model) {
+
+        UserGardenData userGardenData = userGardenDataService.getUserGardenData(request);
+
         Optional<Garden> result = gardenRepository.findById(gardenId);
+
+
+
 
         if (result.isEmpty()) {
             model.addAttribute("title", "Invalid Event ID: " + gardenId);
@@ -205,15 +211,15 @@ public class GardenController {
             }
             model.addAttribute("title", garden.getName() + " Details");
             model.addAttribute("garden", garden);
-            model.addAttribute("plants", plantRepository.findAll());
+            model.addAttribute("plants", userGardenData.getPlants());
 
 
             PlantingDTO plantingDTO = new PlantingDTO();
             plantingDTO.setGardenId(gardenId);
             model.addAttribute("plantingDTO", plantingDTO);
 
-            Integer plantId=0;
-            model.addAttribute("plantId", plantId);
+//            Integer plantId=0;
+//            model.addAttribute("plantId", plantId);
 
         }
         return "garden/detail";
@@ -221,9 +227,19 @@ public class GardenController {
 
 
     @PostMapping("detail")
-    public String processGardenDetails(@Valid @ModelAttribute PlantingDTO plantingDTO, @RequestParam(required = false) Integer plantId, @RequestParam(required = false) Integer plotId, Model model) {
+    public String processGardenDetails(@Valid @ModelAttribute PlantingDTO plantingDTO, @RequestParam(required = false) Integer plantId,
+                                       @RequestParam(required = false) Integer plotId, Errors errors, Model model) {
 
 
+        if (errors.hasErrors()) {
+            return "redirect:/garden/detail?gardenId=" + plantingDTO.getGardenId();
+        }
+
+        if(plantId == null){
+
+            return "redirect:/garden/detail?gardenId=" + plantingDTO.getGardenId();
+
+        }
 
 
         Optional<Plot> result = plotRepository.findById(plotId);
@@ -235,6 +251,8 @@ public class GardenController {
         } else {
 
             Plot plot = result.get();
+
+
 
             if (plot.hasPlanting()) {
 
@@ -248,7 +266,7 @@ public class GardenController {
 
                 Optional<Plant> plantResult = plantRepository.findById(plantId);
                 if (plantResult.isEmpty()) {
-//                    model.addAttribute("title", "Invalid Category ID: ");
+                    model.addAttribute("title", "Invalid Category ID: ");
 //                  ADD ERROR HANDLING IF NEEDED
                     return "redirect:../";
 
@@ -274,7 +292,6 @@ public class GardenController {
 
                         }
 
-
                     }
                     if (removeStartDate != localDate){
                         planting.setRemoveDate(removeStartDate);
@@ -288,13 +305,8 @@ public class GardenController {
 
                     }
 
-
-
-
                     plot.setPlanting(planting);
                     plantingRepository.save(planting);
-
-//todo ADD TO ABOVE CODE BLOCK to check if it will be zero and make it null instead?
 
                     return "redirect:/garden/detail?gardenId=" + plantingDTO.getGardenId() + "#" + plot.getId();
 
