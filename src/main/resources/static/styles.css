@@ -1,17 +1,12 @@
 
 body {
-
  background: hsla(214, 31%, 26%, 1);
  color: hsla(83, 90%, 80%, 1);
-
  font-size: large;
-
 }
 
 
-
 header {
-
 }
 
 .standard-text-color {
@@ -49,7 +44,6 @@ a:hover {
   background-color: hsla(83, 90%, 80%, 1);
 }
 
-
  input[type="number"] {
    width: 80px;
  }
@@ -68,28 +62,21 @@ input[type="checkbox"] {
 
 
 .garden-detail-garden-wrapper {
-    width: min(1400px, 100% - 3rem);
+    width: min(1200px, 100% - 3rem);
     margin-inline: auto;
-
 }
 
 .garden-detail-table-wrapper {
     margin: 1rem;
     padding: 1rem;
     background: hsla(214, 31%, 11%, 1);
-
     border-radius: 1rem;
-
 }
 
 .garden-detail-table-border {
     padding: 1rem;
  background: hsla(214, 31%, 11%, 1);
-
-
-
     border-radius: 1rem;
-
 }
 
 .garden-detail-table-inner-border {
@@ -97,9 +84,8 @@ input[type="checkbox"] {
     padding-bottom: 1rem;
     padding-left: 1rem;
     padding-right: 1rem;
- background: hsla(214, 31%, 26%, 1);
-
-     border-radius: 1rem;
+    background: hsla(214, 31%, 26%, 1);
+    border-radius: 1rem;
 }
 
 .garden-detail-table-inner-border-2 {
@@ -109,10 +95,8 @@ input[type="checkbox"] {
 
 
 .garden-detail-table {
-  display: grid;
-
-
-  column-gap: 10px;
+    display: grid;
+    column-gap: 10px;
     width: 100%;
     border-radius: 1rem;
     color: hsla(28, 22%, 17%, 1);
@@ -127,17 +111,11 @@ input[type="checkbox"] {
 
 }
 
-
 .garden-detail-td:nth-of-type(2n) {
     border-radius: 1rem;
     background: hsla(83, 90%, 70%, 0.6);
 }
-/*
-.garden-detail-tr:nth-of-type(2n) {
-    border-radius: 1rem;
-    background: hsla(83, 90%, 70%, 0.3);
-}
-*/
+
 
 @media (max-width: 1000px) {
 
@@ -196,6 +174,11 @@ text-align: center;
 display: block;
 }
 
+.right-align {
+    text-align: right;
+    display: block;
+}
+
 .plot-detail{
 display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -213,4 +196,26 @@ display: grid;
 
 margin-top: 1rem;
 margin-bottom: 1rem;
+}
+
+
+.bottom-margin {
+margin-bottom: 1rem;
+}
+
+.row-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+.row-grid .div-column {
+  padding: 10px;
+}
+
+
+.row-grid .div-column:last-child {
+  justify-content: flex-end;
+}
+
+.grid-row .button {
+  margin-right: 0;
 }

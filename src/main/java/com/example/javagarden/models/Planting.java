@@ -7,6 +7,9 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDate;
@@ -22,7 +25,10 @@ public class Planting extends AbstractEntity{
     @OneToOne
     private Plot plot;
 
+    @NotBlank(message = "Garden name is required")
+    String name;
 
+    @NotNull(message = "Selecting a plant is required")
     @ManyToOne
     private Plant plant;
 

@@ -24,7 +24,7 @@ public class Bed extends NamedEntity{
 
     @NotNull(message = "Bed Width in Plots is required")
     @Min(value = 1, message = "Each bed must have at least one plot")
-    @Max(value = 5, message = "5 is the maximum for width")
+    @Max(value = 4, message = "4 is the maximum for width")
     private int bedWidthPlots;
 
     @NotNull(message = "Bed Length in Plots is required")
