@@ -3,11 +3,9 @@ package com.example.javagarden.controllers;
 import com.example.javagarden.data.BedRepository;
 import com.example.javagarden.data.GardenRepository;
 
-import com.example.javagarden.models.Bed;
-import com.example.javagarden.models.Garden;
+import com.example.javagarden.data.PlantingRepository;
+import com.example.javagarden.models.*;
 
-import com.example.javagarden.models.Plant;
-import com.example.javagarden.models.UserGardenData;
 import com.example.javagarden.service.UserGardenDataService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +27,9 @@ public class BedController {
 
     @Autowired
     private GardenRepository gardenRepository;
+
+    @Autowired
+    private PlantingRepository plantingRepository;
 
     @Autowired
     private UserGardenDataService userGardenDataService;
@@ -70,6 +71,8 @@ public String displayCreateBedForm(@RequestParam(value = "bedNumber", defaultVal
             }
         }
 
+
+
         Optional<Bed> result = bedRepository.findById(bedId);
 
         if (result.isEmpty()) {
@@ -78,8 +81,20 @@ public String displayCreateBedForm(@RequestParam(value = "bedNumber", defaultVal
 
             Bed bed = result.get();
 
+
             if (bed.getGarden().getId() == gardenId && cleared)
             {
+                List<Plot> plots = bed.getPlots();
+//
+                for(Plot plot: plots){
+                    if(plot.getPlanting() != null) {
+                        Planting planting = plot.getPlanting();
+                        plot.removePlanting(planting);
+                        plantingRepository.delete(planting);
+                    }
+                }
+
+
                 bedRepository.deleteById(bedId);
             }
         }

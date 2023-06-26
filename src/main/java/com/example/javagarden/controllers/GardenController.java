@@ -237,16 +237,7 @@ public class GardenController {
 
 
 
-        if(plantingDTO.getPlantId() == 0){
 
-            model.addAttribute("error", "Please select a plant.");
-
-            // Return to the planting page
-
-            return "redirect:/garden/detail?gardenId=" + plantingDTO.getGardenId() + "&plotId=" + plantingDTO.getPlotId() + "#" + plantingDTO.getPlotId();
-
-
-        }
 
 
         Optional<Plot> result = plotRepository.findById(plantingDTO.getPlotId());
@@ -260,7 +251,6 @@ public class GardenController {
             Plot plot = result.get();
 
 
-
             if (plot.hasPlanting()) {
 
                 Planting planting = plot.getPlanting();
@@ -269,6 +259,19 @@ public class GardenController {
                 return "redirect:/garden/detail?gardenId=" + plantingDTO.getGardenId() + "#" + plot.getId();
 
             } else {
+
+
+
+                        if(plantingDTO.getPlantId() == 0){
+
+            model.addAttribute("error", "Please select a plant.");
+
+            // Return to the planting page
+
+            return "redirect:/garden/detail?gardenId=" + plantingDTO.getGardenId() + "&plotId=" + plantingDTO.getPlotId() + "#" + plantingDTO.getPlotId();
+
+
+        }
 
 
                 Optional<Plant> plantResult = plantRepository.findById(plantingDTO.getPlantId());
