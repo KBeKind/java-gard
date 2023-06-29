@@ -12,8 +12,8 @@ import java.util.Objects;
 public abstract class NamedEntity extends AbstractEntity {
 
 
-   @NotBlank(message = "name is required")
-   @Size(message = "must be 1 to 30 characters")
+   @NotBlank(message = "Name is required.")
+//   @Size(min = 3, max = 30, message = "Name must be 3 to 30 characters.")
    private String name;
 
     public String getName() {

@@ -23,16 +23,12 @@ public class PlantController {
 
     @Autowired
     private PlantRepository plantRepository;
-
     @Autowired
     private PlantTimeRepository plantTimeRepository;
-
     @Autowired
     private PlantIconRepository plantIconRepository;
-
     @Autowired
     private PlantingRepository plantingRepository;
-
     @Autowired
     private UserGardenDataService userGardenDataService;
 
@@ -74,17 +70,19 @@ public class PlantController {
 
 
     @PostMapping("create")
-    public String processCreatePlantForm(@Valid @ModelAttribute Plant plant, @Valid @ModelAttribute PlantTime plantTime,
-                                                 Errors errors, Model model, HttpServletRequest request) {
-
-        UserGardenData userGardenData = userGardenDataService.getUserGardenData(request);
+    public String processCreatePlantForm(@Valid @ModelAttribute Plant plant, Errors errors, @Valid @ModelAttribute PlantTime plantTime,
+                                         Model model, HttpServletRequest request) {
 
         if (errors.hasErrors()) {
             model.addAttribute("title", "Create Plant");
-            model.addAttribute("newPlantTime", new PlantTime());
+            model.addAttribute("newPlantTime" , plantTime);
             model.addAttribute("plantIcons", plantIconRepository.findAll());
             return "plant/create";
         }
+
+
+        UserGardenData userGardenData = userGardenDataService.getUserGardenData(request);
+
 
         plantTime.setUserGardenData(userGardenData);
         plantTimeRepository.save(plantTime);

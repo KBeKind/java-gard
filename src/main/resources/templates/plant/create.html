@@ -10,27 +10,24 @@
     <div class="form-group">
         <label>Plant Name
             <input th:field="${plant.name}" class="form-control">
-        </label>
-        <span th:errors="${plant.name}" class="error"></span>
+
+        <p class="alert" th:errors="${plant.name}"></p>
     </div>
 
 
     <div class="form-group">
-        <label>Select a Plant Icon for your Plant type.
+        <label>Select a Plant Icon for your Plant type:
+            <p class="alert" th:errors="${plant.plantIcon}"></p>
             <div class="iconSelectionMenu">
-
-
                 <th:block th:each="icon : ${plantIcons}">
-<!--                    <div th:class="iconSelectionIcon">-->
                      <input type="radio" th:field="${plant.plantIcon}" th:value="${icon.id}" class="input-hidden" th:id="${icon.description}"/>
                         <label th:for="${icon.description}">
                             <img th:src="'/images/' + ${icon.src} + '.png'" th:alt="${icon.description}" width="60" />
                         </label>
-<!--                    </div>-->
                 </th:block>
             </div>
 
-            <p class="error" th:errors="${plant.plantIcon}"></p>
+
         </label>
     </div>
 

@@ -26,7 +26,10 @@ public class UserGardenDataService {
 
         Optional<User> userResult = userRepository.findById(userId);
 
-        //add error check!!!
+        if (userResult.isEmpty()) {
+            return null;
+        }
+
 
         User user = userResult.get();
 
