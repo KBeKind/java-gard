@@ -12,6 +12,9 @@ import jakarta.servlet.ServletConfig;
 import jakarta.servlet.http.HttpServletRequest;
 
 import jakarta.validation.Valid;
+import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -186,6 +189,7 @@ public class GardenController {
     @GetMapping("detail")
     public String displayGardenDetails(@RequestParam Integer gardenId, @RequestParam(required = false) Integer plotId, HttpServletRequest request, Model model) {
 
+
         UserGardenData userGardenData = userGardenDataService.getUserGardenData(request);
 
         Optional<Garden> result = gardenRepository.findById(gardenId);
@@ -222,9 +226,6 @@ public class GardenController {
             plantingDTO.setGardenId(gardenId);
             model.addAttribute("plantingDTO", plantingDTO);
 
-//            Integer plantId=0;
-//            model.addAttribute("plantId", plantId);
-
         }
         return "garden/detail";
     }
@@ -260,9 +261,7 @@ public class GardenController {
 
             } else {
 
-
-
-                        if(plantingDTO.getPlantId() == 0){
+            if(plantingDTO.getPlantId() == 0){
 
             model.addAttribute("error", "Please select a plant.");
 
@@ -327,5 +326,25 @@ public class GardenController {
 
 
         }
+    }
+
+
+    @GetMapping("addbed")
+    public String showAddBed(@RequestParam(required = false) Integer gardenId, Model model, HttpServletRequest request) {
+
+        UserGardenData userGardenData = userGardenDataService.getUserGardenData(request);
+
+        List<Garden> gardens = userGardenData.getGardens();
+
+        for (Garden garden : gardens) {
+
+            if (garden.getId() == gardenId) {
+
+                model.addAttribute(garden);
+            }
+
+        }
+
+        return "garden/addbed";
     }
 }

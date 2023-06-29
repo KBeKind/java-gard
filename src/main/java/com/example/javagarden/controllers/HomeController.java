@@ -21,20 +21,17 @@ public class HomeController {
     private UserGardenDataService userGardenDataService;
 
 
-
-
-    @GetMapping("/index")
+    @GetMapping("/")
     public String transferToHomeFromIndex(Model model) {
-
         return "home";
     }
+
 
     @GetMapping("/home")
     public String displayHome(Model model) {
-
-
         return "home";
     }
+
 
     @GetMapping("/userhome")
     public String displayUserHome(Model model, HttpServletRequest request) {

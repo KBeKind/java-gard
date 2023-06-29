@@ -3,6 +3,7 @@ package com.example.javagarden.models;
 
 import jakarta.persistence.*;
 
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 
 import java.util.ArrayList;
@@ -17,7 +18,7 @@ public class Plant extends NamedEntity {
 
 
     @ManyToOne
-//    @NotNull(message = "Plant Icon is required")
+    @NotNull(message = "Plant Icon is required")
     private PlantIcon plantIcon;
 
 
