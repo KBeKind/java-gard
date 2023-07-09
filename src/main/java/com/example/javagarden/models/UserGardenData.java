@@ -43,7 +43,6 @@ public class UserGardenData extends AbstractEntity {
         this.user = user;
     }
 
-
     public List<PlantTime> getPlantTimes() {
         return plantTimes;
     }
@@ -70,61 +69,11 @@ public class UserGardenData extends AbstractEntity {
                     if (bed.getId() == id) {
                         return true;
                     }
-
                 }
-
             }
 
         }
         return false;
-
     }
 
-
 }
-//    public boolean checkId(String type, Integer id) {
-//
-////        if (type.equals("garden")) {
-////            for (Garden garden : gardens) {
-////
-////                if (garden.getId() == id) {
-////
-////                    return true;
-////                }
-////            }
-////            return false;
-////
-////        } else if (type.equals("plant")) {
-////
-////
-////            for (Plant plant : plants) {
-////
-////                if (plant.getId() == id) {
-////
-////                    return true;
-////                }
-////            }
-////            return false;
-////        } else
-//            if (type.equals("bed")) {
-//
-//            for (Garden garden : gardens) {
-//
-//                List<Bed> beds = garden.getBeds();
-//
-//                for (Bed bed : beds) {
-//
-//                        if (bed.getId() == id) {
-//                            return true;
-//
-//                    }
-//
-//                }
-//
-//            }
-//
-//        }
-//        return false;
-//
-//    }
-

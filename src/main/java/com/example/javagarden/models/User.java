@@ -17,10 +17,8 @@ public class User extends AbstractEntity {
     @NotNull
     private String pwHash;
 
-//    @NotNull
     @OneToOne(cascade = CascadeType.ALL)
     private UserGardenData userGardenData;
-
 
     @ManyToOne
     @NotNull(message = "User Role is required")
