@@ -15,9 +15,6 @@ public class Plot extends AbstractEntity{
         @OneToOne(cascade = CascadeType.ALL)
         private Planting planting;
 
-
-
-
         public Plot(Bed bed) {
             this.bed = bed;
         }

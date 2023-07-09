@@ -15,10 +15,8 @@ import java.util.List;
 @NoArgsConstructor
 public class Role extends NamedEntity {
 
-
     @OneToMany(mappedBy = "role")
     private final List<User> users = new ArrayList<>();
-
 
     public List<User> getUsers() {
         return users;

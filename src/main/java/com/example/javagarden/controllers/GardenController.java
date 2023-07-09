@@ -107,6 +107,15 @@ public class GardenController {
 
         String[] bedNames = request.getParameterValues("bedName");
 
+        for (int i = 1; i < bedNames.length + 1; i++) {
+            if (bedNames[i - 1].length() < 1) {
+           bedNames[i - 1] = "bed" + i;
+
+
+            }
+        }
+
+
         int[] bedWidthPlots = Arrays.stream(request.getParameterValues("bedWidthPlots"))
                 .mapToInt(Integer::parseInt)
                 .toArray();

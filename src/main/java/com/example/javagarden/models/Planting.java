@@ -40,13 +40,10 @@ public class Planting extends AbstractEntity{
     private Integer daysUntilRemoveStartDate;
 
 
-
-
     public Planting(Plot plot, Plant plant, LocalDate plantingDate) {
         this.plot = plot;
         this.plant = plant;
         this.plantingDate = plantingDate;
-
 
     }
 
@@ -60,7 +57,6 @@ public class Planting extends AbstractEntity{
     public void setPlot(Plot plot) {
         this.plot = plot;
     }
-
 
 
     public Plant getPlant() {
@@ -90,11 +86,8 @@ public class Planting extends AbstractEntity{
 
 
     public void deleteHarvestStartDate() {
-
         this.harvestStartDate = null;
-
     }
-
 
 
     public LocalDate getRemoveDate() {
@@ -107,9 +100,7 @@ public class Planting extends AbstractEntity{
 
 
     public void deleteRemoveDate() {
-
         this.removeDate = null;
-
     }
 
     public long getDaysUntilHarvestStartDate() {
@@ -121,9 +112,7 @@ public class Planting extends AbstractEntity{
     }
 
     public void deleteDaysUntilHarvestStartDate() {
-
         this.daysUntilHarvestStartDate = null;
-
     }
 
 
